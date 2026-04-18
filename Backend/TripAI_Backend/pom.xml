@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.example</groupId>
-    <artifactId>TripAI_Backend</artifactId>
+    <artifactId>demo1</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>TripAI_Backend</name>
-    <description>TripAI_Backend</description>
+    <name>demo1</name>
+    <description>demo1</description>
     <url/>
     <licenses>
         <license/>
@@ -39,6 +39,22 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>dev.langchain4j</groupId>
+            <artifactId>langchain4j-open-ai</artifactId>
+            <version>0.35.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>dev.langchain4j</groupId>
+            <artifactId>langchain4j-core</artifactId>
+            <version>0.35.0</version>
         </dependency>
     </dependencies>
 
