@@ -1,6 +1,5 @@
-package com.example.tripai_backend.model;
+package com.example.tripai_backend.model.Trip;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public record TripResponse(
