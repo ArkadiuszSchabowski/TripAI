@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+/logs/error_logs.log
+/src/main/resources/
