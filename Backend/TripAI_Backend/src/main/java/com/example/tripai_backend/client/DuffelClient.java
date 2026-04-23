@@ -20,12 +20,14 @@ public class DuffelClient {
     @Value("${duffel.api.key}")
     private String duffelApiKey;
 
+    @Value("${duffel.api.base.url}")
+    private String duffelApiBaseUrl;
+
     public DuffelClient() {
         this.restTemplate = new RestTemplate();
     }
 
     public String getFlights(GetFlightDto dto) {
-        String url = "https://api.duffel.com/air/offer_requests";
 
         Slice departureSlice = new Slice(
                 dto.IATACityCodeOriginCity(),
@@ -54,7 +56,7 @@ public class DuffelClient {
 
         HttpEntity<Map<String, Object>> entity = new HttpEntity<>(wrappedBody, headers);
 
-        return restTemplate.postForObject(url, entity, String.class);
+        return restTemplate.postForObject(duffelApiBaseUrl, entity, String.class);
     }
 
     private record DuffelOfferRequest(

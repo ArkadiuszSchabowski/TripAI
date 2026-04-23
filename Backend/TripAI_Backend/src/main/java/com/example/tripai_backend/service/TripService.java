@@ -1,6 +1,8 @@
 package com.example.tripai_backend.service;
 
 import com.example.tripai_backend.aiPrompt.CityPrompt;
+import com.example.tripai_backend.aiPrompt.TripPrompt;
+import com.example.tripai_backend.client.ConfigRestClient;
 import com.example.tripai_backend.model.Flight.FlightResponseDto;
 import com.example.tripai_backend.model.Flight.GetFlightDto;
 import com.example.tripai_backend.model.Trip.TripRequest;
@@ -8,8 +10,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
@@ -22,22 +22,30 @@ import java.util.Map;
 public class TripService {
 
     private final FlyService flyService;
-    private final CityPrompt cityPrompt;
+    private final CityPrompt cityPromptService;
+    private final TripPrompt tripPromptService;
 
-    public TripService(CityPrompt cityPrompt, FlyService flyService)
+    String baseUrl = "";
+
+    public TripService(CityPrompt cityPromptService, TripPrompt tripPromptService, FlyService flyService)
     {
-        this.cityPrompt = cityPrompt;
+        this.cityPromptService = cityPromptService;
         this.flyService = flyService;
+        this.tripPromptService = tripPromptService;
     }
         @Value("${gemini.api.key}")
         private String geminiApiKey;
 
+    @Value("${google.api.base.url}")
+    private String googleApiBaseUrl;
+
     public String generateTripPlan(TripRequest tripRequest) {
 
-        String originCityPrompt = cityPrompt.getIATACityCodeFromCity(tripRequest.originCity()).trim();
-        String destinationCityPrompt = cityPrompt.getIATACityCodeFromCity(tripRequest.destinationCity()).trim();
+        String originCityPrompt = cityPromptService.changeFromCityToIATACityCode(tripRequest.originCity()).trim();
+        String destinationCityPrompt = cityPromptService.changeFromCityToIATACityCode(tripRequest.destinationCity()).trim();
 
-        String baseUrl = "https://generativelanguage.googleapis.com";
+        var configRestClient = new ConfigRestClient();
+        RestClient restClient = configRestClient.createClient(googleApiBaseUrl);
 
         var originCityRequestBody = Map.of(
                 "contents", List.of(
@@ -67,11 +75,6 @@ public class TripService {
                 )
         );;
 
-        RestClient restClient = RestClient.builder()
-                .baseUrl(baseUrl)
-                .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-                .build();
-
 //        String originCityResponse = restClient.post()
 //                .uri(uriBuilder -> uriBuilder
 //                        .path("/v1beta/models/gemma-3-4b-it:generateContent")
@@ -100,7 +103,6 @@ public class TripService {
                 tripRequest.toDepartureDate()
         );
 
-        //Pobierz loty
         var duffelResponse = flyService.getFlies(getFlightDto);
 
         var simplifiedFlight = getSimplifiedFlights(duffelResponse);
@@ -110,7 +112,8 @@ public class TripService {
                 .limit(5)
                 .toList();
 
-        String tripPrompt = "Zaplanuj podróż z lotniska: na podstawie:" + topFlights + "Oszaczuj koszty." + "Daj zwięzłe informacje.";
+
+        String tripPrompt = tripPromptService.generateTripPlan(topFlights);
 
         var tripRequestBody = Map.of(
                 "contents", List.of(
