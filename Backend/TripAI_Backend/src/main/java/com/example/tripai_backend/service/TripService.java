@@ -3,6 +3,7 @@ package com.example.tripai_backend.service;
 import com.example.tripai_backend.aiPrompt.CityPrompt;
 import com.example.tripai_backend.aiPrompt.TripPrompt;
 import com.example.tripai_backend.client.ConfigRestClient;
+import com.example.tripai_backend.helpers.BodyCreator;
 import com.example.tripai_backend.model.Flight.FlightResponseDto;
 import com.example.tripai_backend.model.Flight.GetFlightDto;
 import com.example.tripai_backend.model.Trip.TripRequest;
@@ -11,8 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
 import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
 
 @Service
 public class TripService {
@@ -20,8 +19,10 @@ public class TripService {
     private final FlyService flyService;
     private final CityPrompt cityPromptService;
     private final TripPrompt tripPromptService;
+    private  final BodyCreator bodyCreator;
 
-    public TripService(CityPrompt cityPromptService, TripPrompt tripPromptService, FlyService flyService) {
+    public TripService(BodyCreator bodyCreator, CityPrompt cityPromptService, TripPrompt tripPromptService, FlyService flyService) {
+        this.bodyCreator = bodyCreator;
         this.cityPromptService = cityPromptService;
         this.flyService = flyService;
         this.tripPromptService = tripPromptService;
@@ -41,35 +42,9 @@ public class TripService {
         var configRestClient = new ConfigRestClient();
         RestClient restClient = configRestClient.createClient(googleApiBaseUrl);
 
-        var originCityRequestBody = Map.of(
-                "contents", List.of(
-                        Map.of("parts", List.of(
-                                Map.of("text", originCityPrompt)
-                        ))
-                ),
-                "generationConfig", Map.of(
-                        "temperature", 1.0,
-                        "maxOutputTokens", 8192,
-                        "topP", 0.95,
-                        "topK", 40
-                )
-        );
-        ;
+        var originCityRequestBody = bodyCreator.CreateBody(originCityPrompt);
 
-        var destinationCityRequestBody = Map.of(
-                "contents", List.of(
-                        Map.of("parts", List.of(
-                                Map.of("text", destinationCityPrompt)
-                        ))
-                ),
-                "generationConfig", Map.of(
-                        "temperature", 1.0,
-                        "maxOutputTokens", 8192,
-                        "topP", 0.95,
-                        "topK", 40
-                )
-        );
-        ;
+        var destinationCityRequestBody = bodyCreator.CreateBody(destinationCityPrompt);
 
 //        String originCityResponse = restClient.post()
 //                .uri(uriBuilder -> uriBuilder
@@ -111,22 +86,9 @@ public class TripService {
 
         String tripPrompt = tripPromptService.generateTripPlan(topFlights);
 
-        var tripRequestBody = Map.of(
-                "contents", List.of(
-                        Map.of("parts", List.of(
-                                Map.of("text", tripPrompt)
-                        ))
-                ),
-                "generationConfig", Map.of(
-                        "temperature", 1.0,
-                        "maxOutputTokens", 8192,
-                        "topP", 0.95,
-                        "topK", 40
-                )
-        );
-        ;
+        var tripRequestBody = bodyCreator.CreateBody(tripPrompt);
 
-        String tripResponse = restClient.post()
+        return restClient.post()
                 .uri(uriBuilder -> uriBuilder
                         .path("/v1beta/models/gemma-3-4b-it:generateContent")
                         .queryParam("key", geminiApiKey)
@@ -134,7 +96,5 @@ public class TripService {
                 .body(tripRequestBody)
                 .retrieve()
                 .body(String.class);
-
-        return tripResponse;
     }
 }
