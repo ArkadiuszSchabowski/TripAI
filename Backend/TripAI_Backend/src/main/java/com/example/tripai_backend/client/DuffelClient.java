@@ -2,6 +2,7 @@ package com.example.tripai_backend.client;
 
 import com.example.tripai_backend.model.Flight.GetFlightDto;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -15,6 +16,9 @@ import java.util.Map;
 public class DuffelClient {
 
     private final RestTemplate restTemplate;
+
+    @Value("${duffel.api.key}")
+    private String duffelApiKey;
 
     public DuffelClient() {
         this.restTemplate = new RestTemplate();
@@ -45,7 +49,7 @@ public class DuffelClient {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.set("Authorization", "Bearer X");
+        headers.set("Authorization", "Bearer " + duffelApiKey);
         headers.set("Duffel-Version", "v2");
 
         HttpEntity<Map<String, Object>> entity = new HttpEntity<>(wrappedBody, headers);

@@ -7,6 +7,7 @@ import com.example.tripai_backend.model.Trip.TripRequest;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
@@ -28,14 +29,14 @@ public class TripService {
         this.cityPrompt = cityPrompt;
         this.flyService = flyService;
     }
+        @Value("${gemini.api.key}")
+        private String geminiApiKey;
 
     public String generateTripPlan(TripRequest tripRequest) {
 
         String originCityPrompt = cityPrompt.getIATACityCodeFromCity(tripRequest.originCity()).trim();
         String destinationCityPrompt = cityPrompt.getIATACityCodeFromCity(tripRequest.destinationCity()).trim();
 
-
-        String apiKey = "X";
         String baseUrl = "https://generativelanguage.googleapis.com";
 
         var originCityRequestBody = Map.of(
@@ -74,7 +75,7 @@ public class TripService {
 //        String originCityResponse = restClient.post()
 //                .uri(uriBuilder -> uriBuilder
 //                        .path("/v1beta/models/gemma-3-4b-it:generateContent")
-//                        .queryParam("key", apiKey)
+//                        .queryParam("key", geminiApiKey)
 //                        .build())
 //                .body(originCityRequestBody)
 //                .retrieve()
@@ -83,7 +84,7 @@ public class TripService {
 //        String destinationCityResponse = restClient.post()
 //                .uri(uriBuilder -> uriBuilder
 //                        .path("/v1beta/models/gemma-3-4b-it:generateContent")
-//                        .queryParam("key", apiKey)
+//                        .queryParam("key", geminiApiKey)
 //                        .build())
 //                .body(destinationCityRequestBody)
 //                .retrieve()
@@ -91,6 +92,7 @@ public class TripService {
 
 //                originCityResponse,
 //                destinationCityResponse,
+
         var getFlightDto = new GetFlightDto(
                 "WAW",
                 "BCN",
@@ -127,7 +129,7 @@ public class TripService {
                 String tripResponse = restClient.post()
                 .uri(uriBuilder -> uriBuilder
                         .path("/v1beta/models/gemma-3-4b-it:generateContent")
-                        .queryParam("key", apiKey)
+                        .queryParam("key", geminiApiKey)
                         .build())
                 .body(tripRequestBody)
                 .retrieve()
