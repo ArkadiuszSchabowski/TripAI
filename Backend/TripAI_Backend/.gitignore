@@ -33,4 +33,4 @@ build/
 .vscode/
 
 /logs/error_logs.log
-/src/main/resources/
+/src/main/resources/application.properties
