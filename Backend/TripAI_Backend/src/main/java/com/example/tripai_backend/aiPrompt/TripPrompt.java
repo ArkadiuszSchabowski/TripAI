@@ -1,0 +1,21 @@
+package com.example.tripai_backend.aiPrompt;
+
+import com.example.tripai_backend.model.Flight.FlightResponseDto;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class TripPrompt {
+    public String generateTripPlan(List<FlightResponseDto> flights){
+        return "Create a travel plan based on the following flights: " + flights +
+                ".\n" +
+                "IMPORTANT: Respond in Polish language.\n\n" +
+                "Requirements:\n" +
+                "- Provide a day-by-day itinerary for the trip\n" +
+                "- Include estimated costs for accommodation, food, and activities\n" +
+                "- Prefer cheaper and budget-friendly options\n" +
+                "- Keep the plan realistic and practical\n" +
+                "- Format the response clearly and structured";
+    }
+}
