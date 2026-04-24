@@ -1,4 +1,4 @@
-package com.example.tripai_backend.model.Flight;
+package com.example.tripai_backend.model.flight;
 
 public record FlightResponseDto(
             String originCity,

@@ -1,4 +1,4 @@
-package com.example.tripai_backend.model.Trip;
+package com.example.tripai_backend.model.trip;
 
 import java.time.LocalDateTime;
 

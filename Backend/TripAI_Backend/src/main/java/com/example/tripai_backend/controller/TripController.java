@@ -1,6 +1,6 @@
 package com.example.tripai_backend.controller;
 
-import com.example.tripai_backend.model.Trip.TripRequest;
+import com.example.tripai_backend.model.trip.TripRequest;
 import com.example.tripai_backend.service.TripService;
 import org.springframework.web.bind.annotation.*;
 

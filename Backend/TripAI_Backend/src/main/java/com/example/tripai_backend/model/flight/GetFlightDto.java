@@ -1,4 +1,4 @@
-package com.example.tripai_backend.model.Flight;
+package com.example.tripai_backend.model.flight;
 
 import java.time.LocalDate;
 

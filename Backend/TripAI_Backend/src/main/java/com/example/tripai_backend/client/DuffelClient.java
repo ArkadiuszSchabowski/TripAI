@@ -1,7 +1,9 @@
 package com.example.tripai_backend.client;
 
-import com.example.tripai_backend.model.Flight.GetFlightDto;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.example.tripai_backend.model.duffel.DuffelOfferRequest;
+import com.example.tripai_backend.model.duffel.Passenger;
+import com.example.tripai_backend.model.duffel.Slice;
+import com.example.tripai_backend.model.flight.GetFlightDto;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -58,20 +60,4 @@ public class DuffelClient {
 
         return restTemplate.postForObject(duffelApiBaseUrl, entity, String.class);
     }
-
-    private record DuffelOfferRequest(
-            @JsonProperty("slices") List<Slice> slices,
-            @JsonProperty("passengers") List<Passenger> passengers,
-            @JsonProperty("cabin_class") String cabinClass
-    ) {}
-
-    private record Slice(
-            @JsonProperty("origin") String origin,
-            @JsonProperty("destination") String destination,
-            @JsonProperty("departure_date") String departureDate
-    ) {}
-
-    private record Passenger(
-            @JsonProperty("type") String type
-    ) {}
 }

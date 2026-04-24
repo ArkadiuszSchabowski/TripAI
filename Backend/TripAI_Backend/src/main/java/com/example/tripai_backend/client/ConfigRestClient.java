@@ -1,8 +1,10 @@
 package com.example.tripai_backend.client;
 
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 
+@Configuration
 public class ConfigRestClient {
 
     public org.springframework.web.client.RestClient createClient(String baseUrl){

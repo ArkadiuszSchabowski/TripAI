@@ -1,14 +1,15 @@
 package com.example.tripai_backend.service;
 
 import com.example.tripai_backend.client.DuffelClient;
-import com.example.tripai_backend.model.Flight.FlightResponseDto;
-import com.example.tripai_backend.model.Flight.GetFlightDto;
+import com.example.tripai_backend.model.flight.FlightResponseDto;
+import com.example.tripai_backend.model.flight.GetFlightDto;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -22,6 +23,13 @@ public class FlyService {
 
     public String getFlies(GetFlightDto getFlightDto) {
         return duffelClient.getFlights(getFlightDto);
+    }
+
+    List<FlightResponseDto> getTopFlights(List<FlightResponseDto> flights) {
+        return flights.stream()
+                .sorted(Comparator.comparing(FlightResponseDto::pricePerPerson))
+                .limit(5)
+                .toList();
     }
 
     @SneakyThrows
