@@ -2,15 +2,12 @@ package com.example.tripai_backend.service;
 
 import com.example.tripai_backend.aiPrompt.CityPrompt;
 import com.example.tripai_backend.aiPrompt.TripPrompt;
-import com.example.tripai_backend.client.ConfigRestClient;
 import com.example.tripai_backend.client.GeminiClient;
 import com.example.tripai_backend.helpers.BodyCreator;
+import com.example.tripai_backend.mapper.GeminiMapper;
 import com.example.tripai_backend.model.flight.GetFlightDto;
 import com.example.tripai_backend.model.trip.TripRequest;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -20,12 +17,15 @@ public class TripService {
     private final FlyService flyService;
     private final CityPrompt cityPromptService;
     private final TripPrompt tripPromptService;
-    private  final BodyCreator bodyCreator;
+    private final BodyCreator bodyCreator;
+    private final GeminiMapper geminiMapper;
 
-    public TripService(BodyCreator bodyCreator, CityPrompt cityPromptService, GeminiClient geminiClient, TripPrompt tripPromptService, FlyService flyService) {
+    public TripService(BodyCreator bodyCreator, CityPrompt cityPromptService, GeminiClient geminiClient,
+                       GeminiMapper geminiMapper, TripPrompt tripPromptService, FlyService flyService) {
         this.bodyCreator = bodyCreator;
         this.cityPromptService = cityPromptService;
         this.geminiClient = geminiClient;
+        this.geminiMapper = geminiMapper;
         this.flyService = flyService;
         this.tripPromptService = tripPromptService;
     }
@@ -44,30 +44,9 @@ public class TripService {
 
         String destinationCityResponse = geminiClient.callGeminiApi(destinationCityRequestBody);
 
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode rootOriginCity = mapper.readTree(originCityResponse);
+        String originCity = geminiMapper.getTextFromGeminiJson(originCityResponse);
 
-        var originCity = rootOriginCity
-                .path("candidates")
-                .get(0)
-                .path("content")
-                .path("parts")
-                .get(0)
-                .path("text")
-                .asText()
-                .trim();
-
-        JsonNode rootDestinationCity = mapper.readTree(destinationCityResponse);
-
-        var destinationCity = rootDestinationCity
-                .path("candidates")
-                .get(0)
-                .path("content")
-                .path("parts")
-                .get(0)
-                .path("text")
-                .asText()
-                .trim();
+        String destinationCity = geminiMapper.getTextFromGeminiJson(destinationCityResponse);
 
         var getFlightDto = new GetFlightDto(
                 originCity,
@@ -88,18 +67,6 @@ public class TripService {
 
         var tripResponse = geminiClient.callGeminiApi(tripRequestBody);
 
-        JsonNode rootTrip = mapper.readTree(tripResponse);
-
-        var tripPlan = rootTrip
-                .path("candidates")
-                .get(0)
-                .path("content")
-                .path("parts")
-                .get(0)
-                .path("text")
-                .asText()
-                .trim();
-
-        return tripPlan;
+        return geminiMapper.getTextFromGeminiJson(tripResponse);
     }
 }
