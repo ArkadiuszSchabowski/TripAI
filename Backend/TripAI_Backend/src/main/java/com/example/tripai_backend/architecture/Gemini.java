@@ -4,7 +4,6 @@ import com.example.tripai_backend.client.GeminiClient;
 import com.example.tripai_backend.helpers.GeminiBodyCreator;
 import com.example.tripai_backend.mapper.GeminiMapper;
 import org.springframework.stereotype.Service;
-
 import java.util.Map;
 
 @Service

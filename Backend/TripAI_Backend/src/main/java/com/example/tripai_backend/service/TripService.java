@@ -1,5 +1,6 @@
 package com.example.tripai_backend.service;
 
+import com.example.tripai_backend.architecture.FlightFacade;
 import com.example.tripai_backend.architecture.Gemini;
 import com.example.tripai_backend.aiPrompt.CityPrompt;
 import com.example.tripai_backend.aiPrompt.TripPrompt;
@@ -12,19 +13,19 @@ import java.util.List;
 @Service
 public class TripService {
 
-    private final FlyService flyService;
     private final CityPrompt cityPromptService;
     private final TripPrompt tripPromptService;
     private final Gemini gemini;
+    private final FlightFacade flight;
 
-    public TripService(Gemini gemini,
+    public TripService(Gemini gemini, FlightFacade flight,
                        CityPrompt cityPromptService,
-                       TripPrompt tripPromptService,
-                       FlyService flyService) {
+                       TripPrompt tripPromptService)
+            {
 
         this.gemini = gemini;
+        this.flight = flight;
         this.cityPromptService = cityPromptService;
-        this.flyService = flyService;
         this.tripPromptService = tripPromptService;
     }
 
@@ -43,7 +44,7 @@ public class TripService {
                 tripRequest.toDepartureDate()
         );
 
-        List<FlightResponseDto> topFlights = flyService.GetTopFiveFlights(getFlightDto);
+        List<FlightResponseDto> topFlights = flight.GetTopFiveFlights(getFlightDto);
 
         String tripPrompt = tripPromptService.generateTripPlanPrompt(topFlights, tripRequest.numberOfPeople());
 
