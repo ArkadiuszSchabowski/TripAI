@@ -8,7 +8,6 @@ import com.example.tripai_backend.mapper.GeminiMapper;
 import com.example.tripai_backend.model.flight.FlightResponseDto;
 import com.example.tripai_backend.model.flight.GetFlightDto;
 import com.example.tripai_backend.model.trip.TripRequest;
-import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,7 +33,6 @@ public class TripService {
         this.tripPromptService = tripPromptService;
     }
 
-    @SneakyThrows
     public String generateTripPlan(TripRequest tripRequest) {
 
         String originCityPrompt = cityPromptService.changeFromCityToIATACityCode(tripRequest.originCity()).trim();
