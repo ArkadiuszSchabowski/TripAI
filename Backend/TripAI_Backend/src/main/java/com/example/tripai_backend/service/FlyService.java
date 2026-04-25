@@ -23,8 +23,15 @@ public class FlyService {
         this.duffelClient = duffelClient;
         this.objectMapper = objectMapper;
     }
+    public List<FlightResponseDto> GetTopFiveFlights(GetFlightDto dto){
+        String duffelResponse = getFlights(dto);
 
-    public String getFlies(GetFlightDto getFlightDto) {
+        List<FlightResponseDto> simplifiedFlight = getSimplifiedFlights(duffelResponse);
+
+        return getTopFlights(simplifiedFlight);
+    }
+
+    public String getFlights(GetFlightDto getFlightDto) {
         return duffelClient.getFlights(getFlightDto);
     }
 
