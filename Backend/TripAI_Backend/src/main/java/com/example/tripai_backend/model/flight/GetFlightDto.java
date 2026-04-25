@@ -3,8 +3,8 @@ package com.example.tripai_backend.model.flight;
 import java.time.LocalDate;
 
 public record GetFlightDto(
-    String IATACityCodeOriginCity,
-    String IATACityCodeDestinationCity,
-    LocalDate fromDepartureDate,
-    LocalDate toDepartureDate
-){}
+        String originIataCode,
+        String destinationIataCode,
+        LocalDate departureDateFrom,
+        LocalDate departureDateTo
+) {}
