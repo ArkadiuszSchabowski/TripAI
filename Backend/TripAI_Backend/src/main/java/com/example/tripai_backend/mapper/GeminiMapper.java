@@ -29,7 +29,7 @@ public class GeminiMapper {
                         .trim();
 
             } catch (JsonProcessingException e) {
-                throw new BadRequestException("Invalid Gemini JSON response");
+                throw new BadRequestException("Invalid GeminiFacade JSON response");
             }
         }
 }

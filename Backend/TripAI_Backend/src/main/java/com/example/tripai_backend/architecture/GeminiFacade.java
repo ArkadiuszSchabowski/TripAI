@@ -7,12 +7,12 @@ import org.springframework.stereotype.Service;
 import java.util.Map;
 
 @Service
-public class Gemini {
+public class GeminiFacade {
     private final GeminiBodyCreator bodyCreator;
     private final GeminiClient client;
     private final GeminiMapper mapper;
 
-    public Gemini(GeminiBodyCreator bodyCreator, GeminiClient client, GeminiMapper mapper) {
+    public GeminiFacade(GeminiBodyCreator bodyCreator, GeminiClient client, GeminiMapper mapper) {
         this.bodyCreator = bodyCreator;
         this.client = client;
         this.mapper = mapper;

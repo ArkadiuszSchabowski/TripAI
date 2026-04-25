@@ -1,7 +1,7 @@
 package com.example.tripai_backend.service;
 
 import com.example.tripai_backend.architecture.FlightFacade;
-import com.example.tripai_backend.architecture.Gemini;
+import com.example.tripai_backend.architecture.GeminiFacade;
 import com.example.tripai_backend.aiPrompt.CityPrompt;
 import com.example.tripai_backend.aiPrompt.TripPrompt;
 import com.example.tripai_backend.model.flight.FlightResponseDto;
@@ -15,10 +15,10 @@ public class TripService {
 
     private final CityPrompt cityPromptService;
     private final TripPrompt tripPromptService;
-    private final Gemini gemini;
+    private final GeminiFacade gemini;
     private final FlightFacade flight;
 
-    public TripService(Gemini gemini, FlightFacade flight,
+    public TripService(GeminiFacade gemini, FlightFacade flight,
                        CityPrompt cityPromptService,
                        TripPrompt tripPromptService)
             {
