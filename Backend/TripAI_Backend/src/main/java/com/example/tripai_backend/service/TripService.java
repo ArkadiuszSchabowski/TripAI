@@ -1,10 +1,8 @@
 package com.example.tripai_backend.service;
 
+import com.example.tripai_backend.architecture.GeminiFacade;
 import com.example.tripai_backend.aiPrompt.CityPrompt;
 import com.example.tripai_backend.aiPrompt.TripPrompt;
-import com.example.tripai_backend.client.GeminiClient;
-import com.example.tripai_backend.helpers.BodyCreator;
-import com.example.tripai_backend.mapper.GeminiMapper;
 import com.example.tripai_backend.model.flight.FlightResponseDto;
 import com.example.tripai_backend.model.flight.GetFlightDto;
 import com.example.tripai_backend.model.trip.TripRequest;
@@ -16,19 +14,18 @@ import java.util.Map;
 @Service
 public class TripService {
 
-    private final GeminiClient geminiClient;
     private final FlyService flyService;
     private final CityPrompt cityPromptService;
     private final TripPrompt tripPromptService;
-    private final BodyCreator bodyCreator;
-    private final GeminiMapper geminiMapper;
+    private final GeminiFacade geminiFacade;
 
-    public TripService(BodyCreator bodyCreator, CityPrompt cityPromptService, GeminiClient geminiClient,
-                       GeminiMapper geminiMapper, TripPrompt tripPromptService, FlyService flyService) {
-        this.bodyCreator = bodyCreator;
+    public TripService(GeminiFacade geminiFacade,
+                       CityPrompt cityPromptService,
+                       TripPrompt tripPromptService,
+                       FlyService flyService) {
+
+        this.geminiFacade = geminiFacade;
         this.cityPromptService = cityPromptService;
-        this.geminiClient = geminiClient;
-        this.geminiMapper = geminiMapper;
         this.flyService = flyService;
         this.tripPromptService = tripPromptService;
     }
@@ -38,17 +35,17 @@ public class TripService {
         String originCityPrompt = cityPromptService.changeFromCityToIATACityCode(tripRequest.originCity()).trim();
         String destinationCityPrompt = cityPromptService.changeFromCityToIATACityCode(tripRequest.destinationCity()).trim();
 
-        Map<String, Object> originCityRequestBody = bodyCreator.createBody(originCityPrompt);
+        Map<String, Object> originCityRequestBody = geminiFacade.createBody(originCityPrompt);
 
-        Map<String, Object> destinationCityRequestBody = bodyCreator.createBody(destinationCityPrompt);
+        Map<String, Object> destinationCityRequestBody = geminiFacade.createBody(destinationCityPrompt);
 
-        String originCityResponse = geminiClient.callGeminiApi(originCityRequestBody);
+        String originCityResponse = geminiFacade.callApi(originCityRequestBody);
 
-        String destinationCityResponse = geminiClient.callGeminiApi(destinationCityRequestBody);
+        String destinationCityResponse = geminiFacade.callApi(destinationCityRequestBody);
 
-        String originCity = geminiMapper.getTextFromGeminiJson(originCityResponse);
+        String originCity = geminiFacade.getTextFromJson(originCityResponse);
 
-        String destinationCity = geminiMapper.getTextFromGeminiJson(destinationCityResponse);
+        String destinationCity = geminiFacade.getTextFromJson(destinationCityResponse);
 
         var getFlightDto = new GetFlightDto(
                 originCity,
@@ -65,10 +62,10 @@ public class TripService {
 
         String tripPrompt = tripPromptService.generateTripPlan(topFlights, tripRequest.numberOfPeople());
 
-        Map<String, Object> tripRequestBody = bodyCreator.createBody(tripPrompt);
+        Map<String, Object> tripRequestBody = geminiFacade.createBody(tripPrompt);
 
-        String tripResponse = geminiClient.callGeminiApi(tripRequestBody);
+        String tripResponse = geminiFacade.callApi(tripRequestBody);
 
-        return geminiMapper.getTextFromGeminiJson(tripResponse);
+        return geminiFacade.getTextFromJson(tripResponse);
     }
 }
