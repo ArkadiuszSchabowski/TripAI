@@ -7,7 +7,7 @@ import java.util.List;
 
 @Service
 public class TripPrompt {
-    public String generateTripPlan(List<FlightResponseDto> flights, int numberOfPeople){
+    public String generateTripPlanPrompt(List<FlightResponseDto> flights, int numberOfPeople){
         return "Create a travel plan based on the following flights: " + flights +
                 ".\n" +
                 "IMPORTANT: Respond in Polish language.\n\n" +

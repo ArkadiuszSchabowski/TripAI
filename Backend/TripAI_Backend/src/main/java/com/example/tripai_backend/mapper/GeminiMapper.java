@@ -15,7 +15,7 @@ public class GeminiMapper {
         this.objectMapper = objectMapper;
     }
 
-    public String getTextFromGeminiJson(String jsonResponse) {
+    public String getTextFromJson(String jsonResponse) {
             try {
                 JsonNode root = objectMapper.readTree(jsonResponse);
 
@@ -29,7 +29,7 @@ public class GeminiMapper {
                         .trim();
 
             } catch (JsonProcessingException e) {
-                throw new BadRequestException("Invalid Gemini JSON response");
+                throw new BadRequestException("Invalid GeminiFacade JSON response");
             }
         }
 }

@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class BodyCreator {
+public class GeminiBodyCreator {
     public Map<String, Object> createBody(String text){
         return Map.of(
                 "contents", List.of(
