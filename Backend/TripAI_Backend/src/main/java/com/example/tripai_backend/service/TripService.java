@@ -7,9 +7,7 @@ import com.example.tripai_backend.model.flight.FlightResponseDto;
 import com.example.tripai_backend.model.flight.GetFlightDto;
 import com.example.tripai_backend.model.trip.TripRequest;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class TripService {
@@ -32,20 +30,11 @@ public class TripService {
 
     public String generateTripPlan(TripRequest tripRequest) {
 
-        String originCityPrompt = cityPromptService.changeFromCityToIATACityCode(tripRequest.originCity()).trim();
-        String destinationCityPrompt = cityPromptService.changeFromCityToIATACityCode(tripRequest.destinationCity()).trim();
+        String originCityPrompt = cityPromptService.generateIATAPromptForCity(tripRequest.originCity()).trim();
+        String destinationCityPrompt = cityPromptService.generateIATAPromptForCity(tripRequest.destinationCity()).trim();
 
-        Map<String, Object> originCityRequestBody = gemini.createBody(originCityPrompt);
-
-        Map<String, Object> destinationCityRequestBody = gemini.createBody(destinationCityPrompt);
-
-        String originCityResponse = gemini.callApi(originCityRequestBody);
-
-        String destinationCityResponse = gemini.callApi(destinationCityRequestBody);
-
-        String originCity = gemini.getTextFromJson(originCityResponse);
-
-        String destinationCity = gemini.getTextFromJson(destinationCityResponse);
+        String originCity = gemini.generateCityInfo(originCityPrompt);
+        String destinationCity = gemini.generateCityInfo(destinationCityPrompt);
 
         var getFlightDto = new GetFlightDto(
                 originCity,
@@ -56,12 +45,8 @@ public class TripService {
 
         List<FlightResponseDto> topFlights = flyService.GetTopFiveFlights(getFlightDto);
 
-        String tripPrompt = tripPromptService.generateTripPlan(topFlights, tripRequest.numberOfPeople());
+        String tripPrompt = tripPromptService.generateTripPlanPrompt(topFlights, tripRequest.numberOfPeople());
 
-        Map<String, Object> tripRequestBody = gemini.createBody(tripPrompt);
-
-        String tripResponse = gemini.callApi(tripRequestBody);
-
-        return gemini.getTextFromJson(tripResponse);
+        return gemini.generateTripPlan(tripPrompt);
     }
 }

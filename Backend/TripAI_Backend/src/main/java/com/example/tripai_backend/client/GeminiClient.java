@@ -19,7 +19,7 @@ public class GeminiClient {
             this.restClient = configRestClient.createClient(googleApiBaseUrl);
         }
 
-        public String callGeminiApi(Object requestBody){
+        public String callApi(Object requestBody){
             return restClient.post()
                     .uri(uriBuilder -> uriBuilder
                             .path("/v1beta/models/gemma-3-4b-it:generateContent")

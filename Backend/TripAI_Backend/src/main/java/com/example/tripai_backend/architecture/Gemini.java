@@ -18,15 +18,18 @@ public class Gemini {
         this.client = client;
         this.mapper = mapper;
     }
-    public Map<String, Object> createBody(String text){
-        return bodyCreator.createBody(text);
+
+    public String generateCityInfo(String prompt){
+
+        Map<String, Object> body = bodyCreator.createBody(prompt);
+        String response = client.callApi(body);
+        return mapper.getTextFromJson(response);
     }
 
-    public String callApi(Object requestBody){
-        return client.callGeminiApi(requestBody);
-    }
+    public String generateTripPlan(String prompt){
 
-    public String getTextFromJson(String jsonResponse){
-        return mapper.getTextFromGeminiJson(jsonResponse);
+        Map<String, Object> body = bodyCreator.createBody(prompt);
+        String response = client.callApi(body);
+        return mapper.getTextFromJson(response);
     }
 }
