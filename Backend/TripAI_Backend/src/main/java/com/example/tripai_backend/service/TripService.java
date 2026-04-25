@@ -1,6 +1,6 @@
 package com.example.tripai_backend.service;
 
-import com.example.tripai_backend.architecture.GeminiFacade;
+import com.example.tripai_backend.architecture.Gemini;
 import com.example.tripai_backend.aiPrompt.CityPrompt;
 import com.example.tripai_backend.aiPrompt.TripPrompt;
 import com.example.tripai_backend.model.flight.FlightResponseDto;
@@ -17,14 +17,14 @@ public class TripService {
     private final FlyService flyService;
     private final CityPrompt cityPromptService;
     private final TripPrompt tripPromptService;
-    private final GeminiFacade geminiFacade;
+    private final Gemini gemini;
 
-    public TripService(GeminiFacade geminiFacade,
+    public TripService(Gemini gemini,
                        CityPrompt cityPromptService,
                        TripPrompt tripPromptService,
                        FlyService flyService) {
 
-        this.geminiFacade = geminiFacade;
+        this.gemini = gemini;
         this.cityPromptService = cityPromptService;
         this.flyService = flyService;
         this.tripPromptService = tripPromptService;
@@ -35,17 +35,17 @@ public class TripService {
         String originCityPrompt = cityPromptService.changeFromCityToIATACityCode(tripRequest.originCity()).trim();
         String destinationCityPrompt = cityPromptService.changeFromCityToIATACityCode(tripRequest.destinationCity()).trim();
 
-        Map<String, Object> originCityRequestBody = geminiFacade.createBody(originCityPrompt);
+        Map<String, Object> originCityRequestBody = gemini.createBody(originCityPrompt);
 
-        Map<String, Object> destinationCityRequestBody = geminiFacade.createBody(destinationCityPrompt);
+        Map<String, Object> destinationCityRequestBody = gemini.createBody(destinationCityPrompt);
 
-        String originCityResponse = geminiFacade.callApi(originCityRequestBody);
+        String originCityResponse = gemini.callApi(originCityRequestBody);
 
-        String destinationCityResponse = geminiFacade.callApi(destinationCityRequestBody);
+        String destinationCityResponse = gemini.callApi(destinationCityRequestBody);
 
-        String originCity = geminiFacade.getTextFromJson(originCityResponse);
+        String originCity = gemini.getTextFromJson(originCityResponse);
 
-        String destinationCity = geminiFacade.getTextFromJson(destinationCityResponse);
+        String destinationCity = gemini.getTextFromJson(destinationCityResponse);
 
         var getFlightDto = new GetFlightDto(
                 originCity,
@@ -54,18 +54,14 @@ public class TripService {
                 tripRequest.toDepartureDate()
         );
 
-        String duffelResponse = flyService.getFlies(getFlightDto);
-
-        List<FlightResponseDto> simplifiedFlight = flyService.getSimplifiedFlights(duffelResponse);
-
-        List<FlightResponseDto> topFlights = flyService.getTopFlights(simplifiedFlight);
+        List<FlightResponseDto> topFlights = flyService.GetTopFiveFlights(getFlightDto);
 
         String tripPrompt = tripPromptService.generateTripPlan(topFlights, tripRequest.numberOfPeople());
 
-        Map<String, Object> tripRequestBody = geminiFacade.createBody(tripPrompt);
+        Map<String, Object> tripRequestBody = gemini.createBody(tripPrompt);
 
-        String tripResponse = geminiFacade.callApi(tripRequestBody);
+        String tripResponse = gemini.callApi(tripRequestBody);
 
-        return geminiFacade.getTextFromJson(tripResponse);
+        return gemini.getTextFromJson(tripResponse);
     }
 }
