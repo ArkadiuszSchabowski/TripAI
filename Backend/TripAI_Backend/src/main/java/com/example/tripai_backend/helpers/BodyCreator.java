@@ -7,7 +7,7 @@ import java.util.Map;
 
 @Service
 public class BodyCreator {
-    public Map<String, Object> CreateBody(String text){
+    public Map<String, Object> createBody(String text){
         return Map.of(
                 "contents", List.of(
                         Map.of("parts", List.of(
