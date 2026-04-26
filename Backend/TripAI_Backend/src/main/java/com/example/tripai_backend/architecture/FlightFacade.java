@@ -4,6 +4,7 @@ import com.example.tripai_backend.model.flight.FlightResponseDto;
 import com.example.tripai_backend.model.flight.GetFlightDto;
 import com.example.tripai_backend.service.FlightService;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Service

@@ -34,13 +34,13 @@ public class DuffelClient {
         Slice departureSlice = new Slice(
                 dto.originIataCode(),
                 dto.destinationIataCode(),
-                dto.departureDateFrom().toString()
+                dto.fromDepartureDate().toString()
         );
 
         Slice returnSlice = new Slice(
                 dto.destinationIataCode(),
                 dto.originIataCode(),
-                dto.departureDateTo().toString()
+                dto.toDepartureDate().toString()
         );
 
         DuffelOfferRequest offerRequest = new DuffelOfferRequest(
