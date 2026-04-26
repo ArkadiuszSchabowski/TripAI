@@ -3,7 +3,7 @@ package com.example.tripai_backend;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-//Test
+//Test2
 
 @SpringBootApplication
 public class TripAiBackendApplication {
