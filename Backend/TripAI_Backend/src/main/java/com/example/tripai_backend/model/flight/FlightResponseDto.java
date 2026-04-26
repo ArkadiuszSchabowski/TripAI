@@ -3,8 +3,8 @@ package com.example.tripai_backend.model.flight;
 public record FlightResponseDto(
             String originCity,
             String destinationCity,
-            String departureDateTam,
-            String departureDateBack,
+            String fromDepartureDate,
+            String toDepartureDate,
             String airlineName,
             Double pricePerPerson
 ) {}

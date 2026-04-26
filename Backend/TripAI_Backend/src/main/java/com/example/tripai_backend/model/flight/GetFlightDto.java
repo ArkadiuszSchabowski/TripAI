@@ -5,6 +5,6 @@ import java.time.LocalDate;
 public record GetFlightDto(
         String originIataCode,
         String destinationIataCode,
-        LocalDate departureDateFrom,
-        LocalDate departureDateTo
+        LocalDate fromDepartureDate,
+        LocalDate toDepartureDate
 ) {}
