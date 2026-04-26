@@ -24,15 +24,15 @@ public class FlightService {
         return duffelClient.getFlights(getFlightDto);
     }
 
+    public List<FlightResponseDto> getSimplifiedFlights(String duffelJson) {
+
+        return duffelFlightMapper.mapToFlights(duffelJson);
+    }
+
     public List<FlightResponseDto> getTopFlights(List<FlightResponseDto> flights) {
         return flights.stream()
                 .sorted(Comparator.comparing(FlightResponseDto::pricePerPerson))
                 .limit(5)
                 .toList();
-    }
-
-    public List<FlightResponseDto> getSimplifiedFlights(String duffelJson) {
-
-        return duffelFlightMapper.mapToFlights(duffelJson);
     }
 }

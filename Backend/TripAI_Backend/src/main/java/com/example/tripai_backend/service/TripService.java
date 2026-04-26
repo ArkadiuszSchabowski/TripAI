@@ -14,18 +14,19 @@ import java.util.List;
 public class TripService {
 
     private final CityPrompt cityPromptService;
-    private final TripPrompt tripPromptService;
-    private final GeminiFacade gemini;
     private final FlightFacade flight;
+    private final GeminiFacade gemini;
+    private final TripPrompt tripPromptService;
 
-    public TripService(GeminiFacade gemini, FlightFacade flight,
-                       CityPrompt cityPromptService,
+    public TripService(CityPrompt cityPromptService,
+                       FlightFacade flight,
+                       GeminiFacade gemini,
                        TripPrompt tripPromptService)
             {
 
-        this.gemini = gemini;
-        this.flight = flight;
         this.cityPromptService = cityPromptService;
+        this.flight = flight;
+        this.gemini = gemini;
         this.tripPromptService = tripPromptService;
     }
 
