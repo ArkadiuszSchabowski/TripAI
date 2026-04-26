@@ -12,7 +12,7 @@ public class GeminiClient {
 
         public GeminiClient(
                 ConfigRestClient configRestClient,
-                @Value("${google.api.base.url}") String googleApiBaseUrl,
+                @Value("${gemini.api.base.url}") String googleApiBaseUrl,
                 @Value("${gemini.api.key}") String geminiApiKey) {
 
             this.geminiApiKey = geminiApiKey;
