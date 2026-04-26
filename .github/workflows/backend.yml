@@ -4,11 +4,11 @@ on:
   push:
     branches: ["**"]
     paths:
-      - 'TripAI/Backend/TripAI_Backend/**'
+      - 'Backend/TripAI_Backend/**'
   pull_request:
     branches: ["main"]
     paths:
-      - 'TripAI/Backend/TripAI_Backend/**'
+      - 'Backend/TripAI_Backend/**'
 
 jobs:
   build:
@@ -27,8 +27,8 @@ jobs:
 
       - name: Build with Maven
         run: mvn clean compile
-        working-directory: ./TripAI/Backend/TripAI_Backend
+        working-directory: ./Backend/TripAI_Backend
 
       - name: Run Unit Tests
         run: mvn test
-        working-directory: ./TripAI/Backend/TripAI_Backend
+        working-directory: ./Backend/TripAI_Backend
