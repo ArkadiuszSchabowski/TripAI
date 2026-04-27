@@ -15,7 +15,7 @@ public class FlightFacade {
         this.service = service;
     }
 
-    public List<FlightResponseDto> GetTopFiveFlights(GetFlightDto dto) {
+    public List<FlightResponseDto> getTopFiveFlights(GetFlightDto dto) {
 
         String response = service.getFlights(dto);
         List<FlightResponseDto> flights = service.getSimplifiedFlights(response);
