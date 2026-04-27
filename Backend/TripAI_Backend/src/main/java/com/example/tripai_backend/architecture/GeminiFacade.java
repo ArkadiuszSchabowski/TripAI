@@ -19,7 +19,7 @@ public class GeminiFacade {
         this.mapper = mapper;
     }
 
-    public String generateCityInfo(String prompt){
+    public String getIataCode(String prompt){
 
         Map<String, Object> body = bodyCreator.createBody(prompt);
         String response = client.callApi(body);
