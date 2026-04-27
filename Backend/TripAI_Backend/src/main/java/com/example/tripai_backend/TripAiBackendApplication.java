@@ -3,9 +3,6 @@ package com.example.tripai_backend;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-//Test2
-//Test pipeline
-
 @SpringBootApplication
 public class TripAiBackendApplication {
 
