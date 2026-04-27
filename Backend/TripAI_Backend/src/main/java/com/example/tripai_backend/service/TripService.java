@@ -32,20 +32,20 @@ public class TripService {
 
     public String generateTripPlan(TripRequest tripRequest) {
 
-        String originCityPrompt = cityPromptService.generateIATAPromptForCity(tripRequest.originCity()).trim();
-        String destinationCityPrompt = cityPromptService.generateIATAPromptForCity(tripRequest.destinationCity()).trim();
+        String originCityPrompt = cityPromptService.generateIataPromptForCity(tripRequest.originCity());
+        String destinationCityPrompt = cityPromptService.generateIataPromptForCity(tripRequest.destinationCity());
 
-        String originCity = gemini.generateCityInfo(originCityPrompt);
-        String destinationCity = gemini.generateCityInfo(destinationCityPrompt);
+        String originIata = gemini.getIataCode(originCityPrompt);
+        String destinationIata = gemini.getIataCode(destinationCityPrompt);
 
-        var getFlightDto = new GetFlightDto(
-                originCity,
-                destinationCity,
+        GetFlightDto getFlightDto = new GetFlightDto(
+                originIata,
+                destinationIata,
                 tripRequest.fromDepartureDate(),
                 tripRequest.toDepartureDate()
         );
 
-        List<FlightResponseDto> topFlights = flight.GetTopFiveFlights(getFlightDto);
+        List<FlightResponseDto> topFlights = flight.getTopFiveFlights(getFlightDto);
 
         String tripPrompt = tripPromptService.generateTripPlanPrompt(topFlights, tripRequest.numberOfPeople());
 
