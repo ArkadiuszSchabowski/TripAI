@@ -11,7 +11,7 @@ public class AiConfig {
 
     private final String geminiApiKey;
 
-    public AiConfig(@Value("${gemini.api.key}") String geminiApiKey) {
+    public AiConfig(@Value("${gemini.api.key}:dummy_key_for_build_purposes") String geminiApiKey) {
 
         this.geminiApiKey = geminiApiKey;
     }
