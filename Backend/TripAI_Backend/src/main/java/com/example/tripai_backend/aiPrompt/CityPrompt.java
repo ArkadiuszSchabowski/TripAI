@@ -1,8 +1,8 @@
 package com.example.tripai_backend.aiPrompt;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-@Service
+@Component
 public class CityPrompt {
     public String generateIataPromptForCity(String city){
         return "Return only a 3-letter uppercase IATA airport code for this city: "
