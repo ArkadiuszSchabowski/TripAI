@@ -36,5 +36,20 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           DUFFEL_API_BASE_URL: ${{ secrets.DUFFEL_API_BASE_URL }}
           GEMINI_API_BASE_URL: ${{ secrets.GEMINI_API_BASE_URL }}
+          SPRING_APPLICATION_JSON: |
+            {
+              "gemini": {
+                "api": {
+                  "key": "${{ secrets.GEMINI_API_KEY }}",
+                  "base": { "url": "${{ secrets.GEMINI_API_BASE_URL }}" }
+                }
+              },
+              "duffel": {
+                "api": {
+                  "key": "${{ secrets.DUFFEL_API_KEY }}",
+                  "base": { "url": "${{ secrets.DUFFEL_API_BASE_URL }}" }
+                }
+              }
+            }
         run: mvn test -Dspring.main.banner-mode=off -Dlogging.level.org.springframework=DEBUG
         working-directory: ./Backend/TripAI_Backend
