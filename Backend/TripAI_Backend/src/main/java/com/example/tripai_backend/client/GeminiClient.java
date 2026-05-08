@@ -9,12 +9,14 @@ public class GeminiClient {
 
         private final String geminiApiKey;
         private final RestClient restClient;
+        private final String modelName;
 
         public GeminiClient(
                 ConfigRestClient configRestClient,
                 @Value("${gemini.api.base.url}") String googleApiBaseUrl,
-                @Value("${gemini.api.key}") String geminiApiKey) {
-
+                @Value("${gemini.api.key}") String geminiApiKey,
+                @Value("${model.name}") String modelName) {
+            this.modelName = modelName;
             this.geminiApiKey = geminiApiKey;
             this.restClient = configRestClient.createClient(googleApiBaseUrl);
         }
@@ -22,9 +24,9 @@ public class GeminiClient {
         public String callApi(Object requestBody){
             return restClient.post()
                     .uri(uriBuilder -> uriBuilder
-                            .path("/v1beta/models/gemma-3-4b-it:generateContent")
+                            .path("/v1beta/models/{modelName}:generateContent")
                             .queryParam("key", geminiApiKey)
-                            .build())
+                            .build(modelName))
                     .body(requestBody)
                     .retrieve()
                     .body(String.class);
