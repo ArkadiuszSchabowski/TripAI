@@ -13,9 +13,9 @@ public class GeminiClient {
 
         public GeminiClient(
                 ConfigRestClient configRestClient,
-                @Value("${gemini.api.base.url}") String googleApiBaseUrl,
-                @Value("${gemini.api.key}") String geminiApiKey,
-                @Value("${model.name}") String modelName) {
+                @Value("${gemini.api.base.url:https://generativelanguage.googleapis.com}") String googleApiBaseUrl,
+                @Value("${gemini.api.key:test-key}") String geminiApiKey,
+                @Value("${model.name:gemini-2.5-flash}") String modelName) {
             this.modelName = modelName;
             this.geminiApiKey = geminiApiKey;
             this.restClient = configRestClient.createClient(googleApiBaseUrl);
