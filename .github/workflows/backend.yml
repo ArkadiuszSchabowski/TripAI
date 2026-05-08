@@ -36,5 +36,6 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           DUFFEL_API_BASE_URL: ${{ secrets.DUFFEL_API_BASE_URL }}
           GEMINI_API_BASE_URL: ${{ secrets.GEMINI_API_BASE_URL }}
+          MODEL_NAME: ${{ secrets.MODEL_NAME }}
         run: mvn test
         working-directory: ./Backend/TripAI_Backend
