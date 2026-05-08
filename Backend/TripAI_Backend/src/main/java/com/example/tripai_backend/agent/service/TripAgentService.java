@@ -1,6 +1,7 @@
 package com.example.tripai_backend.agent.service;
 
 import com.example.tripai_backend.agent.agent_interface.TripAgent;
+import com.example.tripai_backend.agent.model.AgentTripPlanDto;
 import com.example.tripai_backend.agent.prompt.TripAgentPrompt;
 import com.example.tripai_backend.agent.tool.FlightTool;
 import com.example.tripai_backend.agent.tool.IataTool;
@@ -26,7 +27,7 @@ import org.springframework.stereotype.Service;
             this.flightTool = flightTool;
         }
 
-        public String planTrip(TripRequest request) {
+        public AgentTripPlanDto planTrip(TripRequest request) {
 
             String userMessage = tripAgentPrompt.generateTripPlanPromptForAgent(request);
 

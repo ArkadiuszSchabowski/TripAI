@@ -10,16 +10,18 @@ import org.springframework.context.annotation.Configuration;
 public class AiConfig {
 
     private final String geminiApiKey;
+    private final String modelName;
 
-    public AiConfig(@Value("${gemini.api.key}:dummy_key_for_build_purposes") String geminiApiKey) {
-
+    public AiConfig(@Value("${gemini.api.key:test-key}") String geminiApiKey,
+                    @Value("${model.name:gemini-2.5-flash}") String modelName) {
         this.geminiApiKey = geminiApiKey;
+        this.modelName = modelName;
     }
     @Bean
     public ChatLanguageModel chatLanguageModel() {
         return GoogleAiGeminiChatModel.builder()
                 .apiKey((geminiApiKey))
-                .modelName("gemini-2.5-flash")
+                .modelName(modelName)
                 .build();
     }
 }
