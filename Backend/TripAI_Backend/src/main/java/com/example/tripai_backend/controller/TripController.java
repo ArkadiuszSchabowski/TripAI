@@ -1,5 +1,6 @@
 package com.example.tripai_backend.controller;
 
+import com.example.tripai_backend.agent.model.AgentTripPlanDto;
 import com.example.tripai_backend.model.trip.TripRequest;
 import com.example.tripai_backend.agent.service.TripAgentService;
 import com.example.tripai_backend.service.TripService;
@@ -23,7 +24,7 @@ public class TripController {
     }
 
     @PostMapping("with-agent")
-    public String showAgentTripPlan(@RequestBody TripRequest request) {
+    public AgentTripPlanDto showAgentTripPlan(@RequestBody TripRequest request) {
         return tripAgentService.planTrip(request);
     }
 }
