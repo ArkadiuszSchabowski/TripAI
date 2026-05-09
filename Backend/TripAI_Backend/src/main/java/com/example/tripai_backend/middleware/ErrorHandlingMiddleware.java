@@ -1,6 +1,8 @@
 package com.example.tripai_backend.middleware;
 
+import com.example.tripai_backend.exception.AgentInvocationLimitReachedException;
 import com.example.tripai_backend.exception.BadRequestException;
+import com.example.tripai_backend.model.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.*;
@@ -13,11 +15,24 @@ public class ErrorHandlingMiddleware {
         private static final Logger log =
                 LoggerFactory.getLogger(ErrorHandlingMiddleware.class);
 
+        @ExceptionHandler(HttpMessageNotReadableException.class)
+        @ResponseStatus(HttpStatus.BAD_REQUEST)
+        public ErrorResponse handleInvalidJson(HttpMessageNotReadableException ex) {
+            log.error("HttpMessageNotReadableException", ex);
+            return new ErrorResponse(
+                    "Invalid JSON format or request body.",
+                    400
+            );
+        }
+
         @ExceptionHandler(BadRequestException.class)
         @ResponseStatus(HttpStatus.BAD_REQUEST)
-        public String handleBadRequest(BadRequestException ex) {
+        public ErrorResponse handleBadRequest(BadRequestException ex) {
             log.error("BadRequestException: ", ex);
-            return ex.getMessage();
+            return new ErrorResponse(
+                    ex.getMessage(),
+                    400
+            );
         }
 
         @ExceptionHandler(AgentInvocationLimitReachedException.class)
@@ -32,8 +47,11 @@ public class ErrorHandlingMiddleware {
 
         @ExceptionHandler(Exception.class)
         @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-        public String handleGeneral(Exception ex) {
+        public ErrorResponse handleGeneral(Exception ex) {
             log.error("Unhandled server exception: ", ex);
-            return "Unexpected server error. Try again later.";
+            return new ErrorResponse(
+                    "Unexpected server error. Try again later.",
+                    500
+            );
         }
     }
