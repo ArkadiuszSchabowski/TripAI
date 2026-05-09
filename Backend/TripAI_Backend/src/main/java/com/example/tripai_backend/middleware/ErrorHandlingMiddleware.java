@@ -1,7 +1,7 @@
 package com.example.tripai_backend.middleware;
 
-import com.example.tripai_backend.exception.AgentInvocationLimitReachedException;
 import com.example.tripai_backend.exception.BadRequestException;
+import com.example.tripai_backend.exception.InvocationLimitReachedException;
 import com.example.tripai_backend.model.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -35,10 +35,10 @@ public class ErrorHandlingMiddleware {
             );
         }
 
-        @ExceptionHandler(AgentInvocationLimitReachedException.class)
+        @ExceptionHandler(InvocationLimitReachedException.class)
         @ResponseStatus(HttpStatus.TOO_MANY_REQUESTS)
-        public ErrorResponse handleAgentInvocationLimitReached(AgentInvocationLimitReachedException ex) {
-            log.error("AgentInvocationLimitReachedException: ", ex);
+        public ErrorResponse handleAgentInvocationLimitReached(InvocationLimitReachedException ex) {
+            log.error("InvocationLimitReachedException: ", ex);
             return new ErrorResponse(
                     ex.getMessage(),
                     429
