@@ -5,6 +5,8 @@ import com.example.tripai_backend.model.trip.TripRequest;
 import com.example.tripai_backend.service.CityValidationService;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+
 @Component
 public class TripRequestValidator {
 
@@ -20,6 +22,8 @@ public class TripRequestValidator {
     }
 
     public void validateDto(TripRequest request) {
+
+        LocalDate today = LocalDate.now();
 
         if (request == null) {
             throw new BadRequestException("Request body is required.");
@@ -47,6 +51,14 @@ public class TripRequestValidator {
 
         if (!cityValidationService.exists(request.destinationCity())) {
             throw new BadRequestException("Unknown destination city.");
+        }
+
+        if (request.fromDepartureDate().isBefore(today)) {
+            throw new BadRequestException("Start date cannot be in the past.");
+        }
+
+        if (request.toDepartureDate().isBefore(today)) {
+            throw new BadRequestException("End date cannot be in the past.");
         }
 
         if (!request.fromDepartureDate()
