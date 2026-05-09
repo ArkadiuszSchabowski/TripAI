@@ -56,7 +56,7 @@ public class TripService {
 
         List<FlightResponseDto> topFlights = flight.getTopFiveFlights(getFlightDto);
 
-        String tripPrompt = tripPromptService.generateTripPlanPrompt(topFlights, tripRequest.numberOfPeople());
+        String tripPrompt = tripPromptService.generateTripPlanPrompt(topFlights, tripRequest);
 
         return gemini.generateTripPlan(tripPrompt);
     }
