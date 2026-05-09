@@ -2,7 +2,10 @@ package com.example.tripai_backend.validator;
 
 import com.example.tripai_backend.exception.BadRequestException;
 import com.example.tripai_backend.model.trip.TripRequest;
+import com.example.tripai_backend.service.CityValidationService;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDate;
 
 @Component
 public class TripRequestValidator {
@@ -12,8 +15,15 @@ public class TripRequestValidator {
     private static final int MAX_PEOPLE = 10;
     private static final int MAX_ORIGIN_CITY_LENGTH = 50;
     private static final int MAX_DESTINATION_CITY_LENGTH = 50;
+    private final CityValidationService cityValidationService;
+
+    public TripRequestValidator(CityValidationService cityValidationService) {
+        this.cityValidationService = cityValidationService;
+    }
 
     public void validateDto(TripRequest request) {
+
+        LocalDate today = LocalDate.now();
 
         if (request == null) {
             throw new BadRequestException("Request body is required.");
@@ -33,6 +43,22 @@ public class TripRequestValidator {
 
         if (request.destinationCity().length() > MAX_DESTINATION_CITY_LENGTH) {
             throw new BadRequestException("Destination city name is too long.");
+        }
+
+        if (!cityValidationService.exists(request.originCity())) {
+            throw new BadRequestException("Unknown origin city.");
+        }
+
+        if (!cityValidationService.exists(request.destinationCity())) {
+            throw new BadRequestException("Unknown destination city.");
+        }
+
+        if (request.fromDepartureDate().isBefore(today)) {
+            throw new BadRequestException("Start date cannot be in the past.");
+        }
+
+        if (request.toDepartureDate().isBefore(today)) {
+            throw new BadRequestException("End date cannot be in the past.");
         }
 
         if (!request.fromDepartureDate()

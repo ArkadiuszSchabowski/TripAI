@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class TripAgentPrompt {
     public String generateTripPlanPromptForAgent(TripRequest request) {
-        return "You are an intelligent travel assistant. Your task is to create a travel plan in Polish.\n\n" +
+        return "You are an intelligent travel assistant. \n\n" +
                 "TRIP DETAILS:\n" +
                 "- From: " + request.originCity() + "\n" +
                 "- To: " + request.destinationCity() + "\n" +

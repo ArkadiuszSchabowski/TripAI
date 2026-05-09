@@ -6,16 +6,35 @@ import java.util.List;
 
 @Component
 public class TripPrompt {
-    public String generateTripPlanPrompt(List<FlightResponseDto> flights, int numberOfPeople){
-        return "Create a travel plan based on the following flights: " + flights +
-                ".\n" +
-                "IMPORTANT: Respond in Polish language.\n\n" +
-                "Requirements:\n" +
-                "- The trip is for " + numberOfPeople + " people.\n" +
-                "- Provide a day-by-day itinerary for the trip\n" +
-                "- Include estimated costs for accommodation, food, and activities\n" +
-                "- Prefer cheaper and budget-friendly options\n" +
-                "- Keep the plan realistic and practical\n" +
-                "- Format the response clearly and structured";
+
+    public String generateTripPlanPrompt(List<FlightResponseDto> flights, int numberOfPeople) {
+
+        return
+                "You are a travel planning assistant.\n\n" +
+
+                        "FLIGHTS:\n" +
+                        flights + "\n\n" +
+
+                        "TRIP:\n" +
+                        "- People: " + numberOfPeople + "\n\n" +
+
+                        "IMPORTANT INSTRUCTIONS:\n\n" +
+
+                        "RESPONSE STYLE:\n" +
+                        "- Be concise.\n" +
+                        "- Use bullet points only.\n" +
+                        "- Maximum 5–8 bullets per day.\n" +
+                        "- No paragraphs.\n" +
+                        "- No repetition.\n\n" +
+
+                        "REQUIREMENTS:\n" +
+                        "- Create a day-by-day itinerary.\n" +
+                        "- Include estimated costs (accommodation, food, activities).\n" +
+                        "- Prefer budget-friendly options.\n" +
+                        "- Keep suggestions realistic and practical.\n\n" +
+
+                        "OUTPUT FORMAT:\n" +
+                        "- Structured daily plan (Day 1, Day 2, etc.)\n" +
+                        "- Bullet points only\n";
     }
 }

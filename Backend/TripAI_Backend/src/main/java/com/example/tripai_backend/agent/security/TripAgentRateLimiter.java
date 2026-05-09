@@ -1,6 +1,6 @@
 package com.example.tripai_backend.agent.security;
 
-import com.example.tripai_backend.exception.AgentInvocationLimitReachedException;
+import com.example.tripai_backend.exception.InvocationLimitReachedException;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -21,7 +21,7 @@ public class TripAgentRateLimiter {
         }
 
         if (count >= MAX_REQUESTS) {
-            throw new AgentInvocationLimitReachedException(
+            throw new InvocationLimitReachedException(
                     "Daily Trip Agent limit reached (" + MAX_REQUESTS + " invocations per day)."
             );
         }
