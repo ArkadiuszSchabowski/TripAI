@@ -20,11 +20,14 @@ public class ErrorHandlingMiddleware {
             return ex.getMessage();
         }
 
-        @ExceptionHandler(HttpMessageNotReadableException.class)
-        @ResponseStatus(HttpStatus.BAD_REQUEST)
-        public String handleInvalidJson(HttpMessageNotReadableException ex) {
-            log.error("Invalid JSON format or request body: ", ex);
-            return "Invalid JSON format or request body.";
+        @ExceptionHandler(AgentInvocationLimitReachedException.class)
+        @ResponseStatus(HttpStatus.TOO_MANY_REQUESTS)
+        public ErrorResponse handleAgentInvocationLimitReached(AgentInvocationLimitReachedException ex) {
+            log.error("AgentInvocationLimitReachedException: ", ex);
+            return new ErrorResponse(
+                    ex.getMessage(),
+                    429
+            );
         }
 
         @ExceptionHandler(Exception.class)
