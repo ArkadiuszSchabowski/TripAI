@@ -9,7 +9,6 @@ public class TripPrompt {
     public String generateTripPlanPrompt(List<FlightResponseDto> flights, int numberOfPeople){
         return "Create a travel plan based on the following flights: " + flights +
                 ".\n" +
-                "IMPORTANT: Respond in Polish language.\n\n" +
                 "Requirements:\n" +
                 "- The trip is for " + numberOfPeople + " people.\n" +
                 "- Provide a day-by-day itinerary for the trip\n" +
