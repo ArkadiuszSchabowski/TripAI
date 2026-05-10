@@ -44,5 +44,5 @@ dataSources.local.xml
 ### VS Code ###
 .vscode/
 
-/logs/error_logs.log
-/src/main/resources/application.properties
+error_logs.log
+application.properties
