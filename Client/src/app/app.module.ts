@@ -29,9 +29,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatInputModule,
     MatNativeDateModule,
     ReactiveFormsModule,
-    ToastrModule.forRoot({
-      positionClass: 'toast-bottom-right',
-    }),
+    ToastrModule.forRoot({}),
   ],
   providers: [],
   bootstrap: [AppComponent],
