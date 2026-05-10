@@ -1,5 +1,5 @@
 <div id="home-component" class="component">
-  <form [formGroup]="form" (ngSubmit)="submitTrip()" autocomplete="off">
+  <form [formGroup]="form" (ngSubmit)="loadTrip()" autocomplete="off" *ngIf="!tripInformation">
     <mat-card>
       <mat-card-title id="card-title">Plan your flight</mat-card-title>
       <mat-card-content>
@@ -101,10 +101,79 @@
             color="accent"
             type="submit"
           >
-            Register
+            Ok
           </button>
         </div>
       </mat-card-content>
     </mat-card>
   </form>
+<div id="trip-container" *ngIf="tripInformation">
+
+  <div>
+    <div class="cities">
+      {{ tripInformation.originCity }} → {{ tripInformation.destinationCity }}
+    </div>
+  </div>
+
+  <div>
+    <div class="dates">
+      {{ tripInformation.fromDepartureDate }} - {{ tripInformation.toDepartureDate }}
+    </div>
+
+    <div class="people">
+      👥 {{ tripInformation.numberOfPeople }} traveler(s)
+    </div>
+
+    <div class="cost">
+      {{ tripInformation.approximateTripCost }}
+    </div>
+  </div>
+
+  <div class="day-card" *ngFor="let day of days">
+
+    <div class="day-number">Day {{ day.dayNumber }}</div>
+
+    <div class="section">
+
+      <div class="container-time-of-the-day">
+
+        <div class="time-of-day">🌅 Morning</div>
+        <div class="time-of-day-text">
+          {{ day.morningPlan }}
+        </div>
+
+      </div>
+
+      <div class="container-time-of-the-day">
+
+        <div class="time-of-day">☀️ Afternoon</div>
+        <div class="time-of-the-day-text">
+          {{ day.afternoonPlan }}
+        </div>
+
+      </div>
+
+      <div class="container-time-of-the-day">
+
+        <div class="time-of-day">🌙 Evening</div>
+        <div class="time-of-the-day-text">
+          {{ day.tonightPlan }}
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <div id="back-button-container">
+    <button
+      id="back-button"
+      mat-raised-button
+      color="accent"
+      (click)="resetTrip()"
+    >
+      Plan another trip
+    </button>
+  </div>
+
 </div>

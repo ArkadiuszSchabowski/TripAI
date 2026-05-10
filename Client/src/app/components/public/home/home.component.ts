@@ -3,31 +3,39 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { TripRequest } from '../../../models/trip-request';
 import { TripService } from '../../../_services/trip.service';
 import { ToastrService } from 'ngx-toastr';
+import { TripDailyPlan } from '../../../models/trip-daily-plan';
+import { TripInformation } from '../../../models/trip-information';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent {
-  
-constructor(private fb: FormBuilder, private toastr: ToastrService, private tripService: TripService){
+  tripInformation!: TripInformation | null;
+  days: TripDailyPlan[] = [];
 
-}
+  form = this.fb.group({
+    fromCity: ['', [Validators.required, Validators.maxLength(50)]],
+    toCity: ['', [Validators.required, Validators.maxLength(50)]],
+    numberOfTravelers: [
+      1,
+      [Validators.required, Validators.min(1), Validators.max(10)],
+    ],
 
-form = this.fb.group({
-  fromCity: ['', [Validators.required, Validators.maxLength(50)]],
-  toCity: ['', [Validators.required, Validators.maxLength(50)]],
+    dateRange: this.fb.group({
+      start: ['', Validators.required],
+      end: ['', Validators.required],
+    }),
+  });
 
-  dateRange: this.fb.group({
-    start: ['', Validators.required],
-    end: ['', Validators.required]
-  }),
+  constructor(
+    private fb: FormBuilder,
+    private toastr: ToastrService,
+    private tripService: TripService,
+  ) {}
 
-  numberOfTravelers: [1, [Validators.required, Validators.min(1), Validators.max(10)]]
-});
-
-  submitTrip() {
+  loadTrip() {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
@@ -43,7 +51,12 @@ form = this.fb.group({
 
     this.tripService.showAgentTripPlan(dto).subscribe({
       next: (response) => {
+        this.tripInformation = response.information;
+        this.days = response.dailyPlan;
         console.log(response);
+        console.log(this.tripInformation);
+        console.log(this.days);
+
         this.toastr.success('Registered successfully.');
       },
       error: (error) => {
@@ -51,8 +64,17 @@ form = this.fb.group({
           this.toastr.error(error.error);
           this.form.reset();
         }
+        this.toastr.error(error.error.message)
         console.log(error);
       },
     });
-}
+  }
+
+  resetTrip() {
+    this.tripInformation = null;
+    this.days = [];
+    this.form.reset({
+      numberOfTravelers: 1,
+    });
+  }
 }
