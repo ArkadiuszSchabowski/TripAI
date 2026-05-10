@@ -1,0 +1,110 @@
+<div id="home-component" class="component">
+  <form [formGroup]="form" (ngSubmit)="submitTrip()" autocomplete="off">
+    <mat-card>
+      <mat-card-title id="card-title">Plan your flight</mat-card-title>
+      <mat-card-content>
+        <mat-form-field appearance="outline">
+          <mat-label>From city</mat-label>
+          <input matInput formControlName="fromCity" />
+          <mat-error
+            *ngIf="
+              form.get('fromCity')?.hasError('required') &&
+              form.get('fromCity')?.touched
+            "
+          >
+            City is required.
+          </mat-error>
+          <mat-error
+            *ngIf="
+              form.get('fromCity')?.hasError('maxlength') &&
+              form.get('fromCity')?.touched
+            "
+          >
+            City must be between 1 and 50 characters.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>To city</mat-label>
+          <input matInput formControlName="toCity" />
+          <mat-error
+            *ngIf="
+              form.get('toCity')?.hasError('required') &&
+              form.get('toCity')?.touched
+            "
+          >
+            City is required.
+          </mat-error>
+          <mat-error
+            *ngIf="
+              form.get('toCity')?.hasError('maxlength') &&
+              form.get('toCity')?.touched
+            "
+          >
+            City must be between 1 and 50 characters.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Travel dates</mat-label>
+
+          <div formGroupName="dateRange" id="container-date-range">
+            <mat-date-range-input [rangePicker]="picker">
+              <input
+                matStartDate
+                formControlName="start"
+                placeholder="Start date"
+              />
+              <input matEndDate formControlName="end" placeholder="End date" />
+            </mat-date-range-input>
+          </div>
+
+          <mat-datepicker-toggle
+            matIconSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-date-range-picker #picker></mat-date-range-picker>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Travelers</mat-label>
+
+          <input
+            matInput
+            type="number"
+            formControlName="numberOfTravelers"
+            min="1"
+            max="10"
+          />
+
+          <mat-error
+            *ngIf="
+              form.get('numberOfTravelers')?.hasError('required') &&
+              form.get('numberOfTravelers')?.touched
+            "
+          >
+            Please select number of travelers.
+          </mat-error>
+
+          <mat-error
+            *ngIf="
+              form.get('numberOfTravelers')?.hasError('min') ||
+              form.get('numberOfTravelers')?.hasError('max')
+            "
+          >
+            Number of people must be between 1 and 10.
+          </mat-error>
+        </mat-form-field>
+        <div id="submit-button-container">
+          <button
+            id="submit-button"
+            mat-raised-button
+            color="accent"
+            type="submit"
+          >
+            Register
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </form>
+</div>

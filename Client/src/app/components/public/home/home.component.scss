@@ -1,0 +1,44 @@
+@use "@angular/material" as mat;
+@use "src/styles" as theme;
+
+mat-card{
+    width: 600px;
+    min-width: 400px;
+    height: auto;
+}
+
+mat-card-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+#home-component, form{
+    width: 100%;
+    height: 100%;
+}
+
+#home-component, form, mat-card{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#card-title {
+  display: flex;
+  width: 100%;
+  height: auto;
+  text-align: center;
+  justify-content: center;
+  font-size: 24px;
+  margin: 20px 0;
+  padding: 10px 0;
+  background-color: mat.get-color-from-palette(theme.$accent);
+}
+
+#submit-button-container{
+    margin: 10px 0;
+}
