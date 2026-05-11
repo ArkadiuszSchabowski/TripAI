@@ -34,25 +34,32 @@ public class DuffelFlightMapper {
                 JsonNode departureTrip = slices.get(0);
                 String origin = departureTrip.path("origin").path("name").asText();
                 String destination = departureTrip.path("destination").path("name").asText();
-                String departureDate = departureTrip.path("segments").get(0).path("departing_at").asText();
+                String outboundDeparture = slices.get(0).path("segments").get(0).path("departing_at").asText();
+                String outboundArrival   = slices.get(0).path("segments").get(0).path("arriving_at").asText();
 
-                String returnDate = (slices.size() > 1)
+                String returnDeparture   = slices.size() > 1
                         ? slices.get(1).path("segments").get(0).path("departing_at").asText()
-                        : "One way only";
+                        : null;
+
+                String returnArrival     = slices.size() > 1
+                        ? slices.get(1).path("segments").get(0).path("arriving_at").asText()
+                        : null;
 
                 double totalAmount = offer.path("total_amount").asDouble();
                 int passengerCount = offer.path("passengers").size();
                 double pricePerPerson = totalAmount / (passengerCount > 0 ? passengerCount : 1);
 
-                String airline = offer.path("owner").path("name").asText();
+                String airlineName = offer.path("owner").path("name").asText();
 
 
                 listFlights.add(new FlightResponseDto(
                         origin,
                         destination,
-                        departureDate,
-                        returnDate,
-                        airline,
+                        outboundDeparture,
+                        outboundArrival,
+                        returnDeparture,
+                        returnArrival,
+                        airlineName,
                         pricePerPerson
                 ));
             }

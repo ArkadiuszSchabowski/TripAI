@@ -1,8 +1,11 @@
 package com.example.tripai_backend.agent.model;
 
-public class DailyTripPlan {
-    public String dayNumber;
-    public String morningPlan;
-    public String afternoonPlan;
-    public String tonightPlan;
-}
+public record DailyTripPlan (
+        String dayNumber,
+        String morningPlan,
+        String morningWhy,
+        String afternoonPlan,
+        String afternoonWhy,
+        String tonightPlan,
+        String nightWhy
+) {}
