@@ -5,6 +5,7 @@ import { TripService } from '../../../_services/trip.service';
 import { ToastrService } from 'ngx-toastr';
 import { TripDailyPlan } from '../../../models/trip-daily-plan';
 import { TripInformation } from '../../../models/trip-information';
+import { TripAgentResponse } from '../../../models/trip-agent-response';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +13,8 @@ import { TripInformation } from '../../../models/trip-information';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent {
-  tripInformation!: TripInformation | null;
+  tripAgentResponse: TripAgentResponse | null = null;
+  tripInformation: TripInformation | null = null;
   days: TripDailyPlan[] = [];
 
   form = this.fb.group({
@@ -51,13 +53,8 @@ export class HomeComponent {
 
     this.tripService.showAgentTripPlan(dto).subscribe({
       next: (response) => {
-        this.tripInformation = response.information;
-        this.days = response.dailyPlan;
-        console.log(response);
-        console.log(this.tripInformation);
-        console.log(this.days);
-
-        this.toastr.success('Registered successfully.');
+        this.tripAgentResponse = response;
+        console.log(this.tripAgentResponse);
       },
       error: (error) => {
         if (error.status === 400) {
@@ -71,10 +68,7 @@ export class HomeComponent {
   }
 
   resetTrip() {
-    this.tripInformation = null;
-    this.days = [];
-    this.form.reset({
-      numberOfTravelers: 1,
-    });
+    this.tripAgentResponse = null;
+    this.form.reset();
   }
 }

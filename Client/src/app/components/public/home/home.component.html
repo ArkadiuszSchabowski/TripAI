@@ -3,7 +3,7 @@
     [formGroup]="form"
     (ngSubmit)="loadTrip()"
     autocomplete="off"
-    *ngIf="!tripInformation"
+    *ngIf="!tripAgentResponse"
   >
     <mat-card class="trip">
       <mat-card-title id="card-title">Plan your flight</mat-card-title>
@@ -112,53 +112,92 @@
       </mat-card-content>
     </mat-card>
   </form>
-  <div id="trip-container" *ngIf="tripInformation">
+  <div id="trip-container" *ngIf="tripAgentResponse">
     <div>
       <div class="cities">
-        Route: {{ tripInformation.originCity }} →
-        {{ tripInformation.destinationCity }}
+        Route: {{ tripAgentResponse.information.originCity }} →
+        {{ tripAgentResponse.information.destinationCity }}
       </div>
     </div>
 
     <div>
       <div class="dates">
-        Travel Dates: {{ tripInformation.fromDepartureDate }} -
-        {{ tripInformation.toDepartureDate }}
+        Travel Dates:
+        {{ tripAgentResponse.information.departureDateFrom }} -
+        {{ tripAgentResponse.information.departureDateTo }}
       </div>
 
       <div class="people">
-        Travelers: {{ tripInformation.numberOfPeople }} traveler(s)
+        Travelers:
+        {{ tripAgentResponse.information.numberOfPeople }} traveler(s)
+      </div>
+
+        <div class="currency">
+        Currency:
+        {{ tripAgentResponse.information.currency }}
+      </div>
+
+      <div class="flightDetails">
+        <div>Flight details:</div>
+        <div>Recommended airline: {{ tripAgentResponse.details.recommendedAirline }}</div>
+        <div>Outbound departure: {{ tripAgentResponse.details.outboundDeparture }}</div>
+        <div>Outbound arrival: {{ tripAgentResponse.details.outboundArrival }}</div>
+        <div>Return departure: {{ tripAgentResponse.details.returnDeparture }}</div>
+        <div>Return arrival: {{ tripAgentResponse.details.returnArrival }}</div>
       </div>
 
       <div class="cost">
-        Total budget: {{ tripInformation.approximateTripCost }}
+        <div>
+          Total trip cost:
+          {{ tripAgentResponse.costs.estimatedTotalTripCost }}
+        </div>
+        <div>
+          Ticket cost:
+          {{ tripAgentResponse.costs.estimatedTicketCost }}
+        </div>
+        <div>
+          Estimated accomamodation cost:
+          {{ tripAgentResponse.costs.estimatedAccommodationCost }}
+        </div>
+        <div>
+          Estimated food cost:
+          {{ tripAgentResponse.costs.estimatedFoodCost }}
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="intro">{{ tripAgentResponse.tripIntro }}</div>
+    </div>
+
+    <div class="day-card" *ngFor="let day of tripAgentResponse.dailyPlan">
+      <div class="day-number">{{ day.dayNumber }}</div>
+
+      <div class="section">
+        <div class="container-time-of-the-day" *ngIf="day.morningPlan">
+          <div class="time-of-day">🌅 Morning</div>
+          <div class="time-of-day-text">
+            {{ day.morningPlan }} {{ day.morningWhy }}
+          </div>
+        </div>
+
+        <div class="container-time-of-the-day" *ngIf="day.afternoonPlan">
+          <div class="time-of-day">☀️ Afternoon</div>
+          <div class="time-of-the-day-text">
+            {{ day.afternoonPlan }} {{ day.afternoonWhy }}
+          </div>
+        </div>
+        <div class="container-time-of-the-day" *ngIf="day.tonightPlan">
+          <div class="time-of-day">🌙 Evening</div>
+          <div class="time-of-the-day-text">
+            {{ day.tonightPlan }} {{ day.tonightWhy }}
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="day-card" *ngFor="let day of days">
-      <div class="day-number">Day {{ day.dayNumber }}</div>
-
-      <div class="section">
-        <div class="container-time-of-the-day">
-          <div class="time-of-day">🌅 Morning</div>
-          <div class="time-of-day-text">
-            {{ day.morningPlan }}
-          </div>
-        </div>
-
-        <div class="container-time-of-the-day">
-          <div class="time-of-day">☀️ Afternoon</div>
-          <div class="time-of-the-day-text">
-            {{ day.afternoonPlan }}
-          </div>
-        </div>
-
-        <div class="container-time-of-the-day">
-          <div class="time-of-day">🌙 Evening</div>
-          <div class="time-of-the-day-text">
-            {{ day.tonightPlan }}
-          </div>
-        </div>
+    <div>
+      <div class="closingFeeling">
+        {{ tripAgentResponse.closingFeeling }}
       </div>
     </div>
 

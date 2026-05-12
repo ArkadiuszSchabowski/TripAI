@@ -1,6 +1,9 @@
 export interface TripDailyPlan {
-  dayNumber: string;
-  morningPlan: string;
-  afternoonPlan: string;
-  tonightPlan: string;
+dayNumber: string;
+morningPlan: string;
+morningWhy: string;
+afternoonPlan: string;
+afternoonWhy: string;
+tonightPlan: string;
+tonightWhy: string;
 }
