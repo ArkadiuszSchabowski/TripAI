@@ -67,9 +67,14 @@ mat-card-content.trip{
     padding: 5px 0;
 }
 
-.day-number, .dates, .people, .cost, .cities{
+.day-number, .dates, .people, .cities, .currency{
     font-weight: bolder;
     padding: 3px 0;
+}
+
+.cost, .flightDetails{
+    font-weight: bolder;
+    padding: 10px 0;
 }
 
 .time-of-day{
@@ -79,4 +84,8 @@ mat-card-content.trip{
 
 .day-card{
     padding-top: 20px;
+}
+
+.intro, .closingFeeling{
+    margin-top: 10px;
 }
