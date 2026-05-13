@@ -1,7 +1,7 @@
 package com.example.tripai_backend.agent.model;
 
 public record DailyTripPlan (
-        String dayNumber,
+        int dayNumber,
         String morningPlan,
         String morningWhy,
         String afternoonPlan,

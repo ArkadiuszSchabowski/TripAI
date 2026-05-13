@@ -1,10 +1,12 @@
 package com.example.tripai_backend.agent.model;
 
+import java.time.LocalDate;
+
 public record TripInformation(
         String originCity,
         String destinationCity,
-        String departureDateFrom,
-        String departureDateTo,
-        String numberOfPeople,
+        LocalDate departureDateFrom,
+        LocalDate departureDateTo,
+        int numberOfPeople,
         String currency
 ) {}

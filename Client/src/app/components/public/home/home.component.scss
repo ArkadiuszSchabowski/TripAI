@@ -54,7 +54,7 @@ mat-card-content.trip{
     justify-content: center;
     align-items: center;
     margin: 10px 0;
-    padding-top: 50px;
+    padding-top: 20px;
 }
 
 .day-card, .section, .time-of-day{
@@ -67,12 +67,17 @@ mat-card-content.trip{
     padding: 5px 0;
 }
 
-.day-number, .dates, .people, .cities, .currency{
+.dates, .people, .cities, .flight-details-item, .cost-item{
     font-weight: bolder;
     padding: 3px 0;
 }
 
-.cost, .flightDetails{
+.day-number{
+    font-weight: bolder;
+    padding: 3px 0 10px 0;
+}
+
+.cost, .flight-details{
     font-weight: bolder;
     padding: 10px 0;
 }
@@ -86,6 +91,6 @@ mat-card-content.trip{
     padding-top: 20px;
 }
 
-.intro, .closingFeeling{
+.intro, .closing-feeling{
     margin-top: 10px;
 }

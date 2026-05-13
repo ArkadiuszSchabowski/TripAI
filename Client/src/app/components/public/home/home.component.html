@@ -132,36 +132,31 @@
         {{ tripAgentResponse.information.numberOfPeople }} traveler(s)
       </div>
 
-        <div class="currency">
-        Currency:
-        {{ tripAgentResponse.information.currency }}
-      </div>
-
-      <div class="flightDetails">
-        <div>Flight details:</div>
-        <div>Recommended airline: {{ tripAgentResponse.details.recommendedAirline }}</div>
-        <div>Outbound departure: {{ tripAgentResponse.details.outboundDeparture }}</div>
-        <div>Outbound arrival: {{ tripAgentResponse.details.outboundArrival }}</div>
-        <div>Return departure: {{ tripAgentResponse.details.returnDeparture }}</div>
-        <div>Return arrival: {{ tripAgentResponse.details.returnArrival }}</div>
+      <div class="flight-details">
+        <div class="flight-details-item">Flight details:</div>
+        <div class="flight-details-item">Recommended airline: {{ tripAgentResponse.details.recommendedAirline }}</div>
+        <div class="flight-details-item">Outbound departure: {{ tripAgentResponse.details.outboundDeparture }}</div>
+        <div class="flight-details-item">Outbound arrival: {{ tripAgentResponse.details.outboundArrival }}</div>
+        <div class="flight-details-item">Return departure: {{ tripAgentResponse.details.returnDeparture }}</div>
+        <div class="flight-details-item">Return arrival: {{ tripAgentResponse.details.returnArrival }}</div>
       </div>
 
       <div class="cost">
-        <div>
+        <div class="cost-item">
           Total trip cost:
-          {{ tripAgentResponse.costs.estimatedTotalTripCost }}
+          {{ tripAgentResponse.costs.estimatedTotalTripCost }} {{tripAgentResponse.information.currency}}
         </div>
-        <div>
+        <div class="cost-item">
           Ticket cost:
-          {{ tripAgentResponse.costs.estimatedTicketCost }}
+          {{ tripAgentResponse.costs.estimatedTicketCost }} {{tripAgentResponse.information.currency}}
         </div>
-        <div>
+        <div class="cost-item">
           Estimated accomamodation cost:
-          {{ tripAgentResponse.costs.estimatedAccommodationCost }}
+          {{ tripAgentResponse.costs.estimatedAccommodationCost }} {{tripAgentResponse.information.currency}}
         </div>
-        <div>
+        <div class="cost-item">
           Estimated food cost:
-          {{ tripAgentResponse.costs.estimatedFoodCost }}
+          {{ tripAgentResponse.costs.estimatedFoodCost }} {{tripAgentResponse.information.currency}}
         </div>
       </div>
     </div>
@@ -170,7 +165,7 @@
     </div>
 
     <div class="day-card" *ngFor="let day of tripAgentResponse.dailyPlan">
-      <div class="day-number">{{ day.dayNumber }}</div>
+      <div class="day-number">Day {{ day.dayNumber }}</div>
 
       <div class="section">
         <div class="container-time-of-the-day" *ngIf="day.morningPlan">
@@ -196,7 +191,7 @@
     </div>
 
     <div>
-      <div class="closingFeeling">
+      <div class="closing-feeling">
         {{ tripAgentResponse.closingFeeling }}
       </div>
     </div>
