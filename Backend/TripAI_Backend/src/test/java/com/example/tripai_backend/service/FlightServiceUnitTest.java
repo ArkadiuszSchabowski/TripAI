@@ -78,23 +78,111 @@ class FlightServiceUnitTest {
     }
 
     @Test
-    void getTopFlights_WhenListLongerThanFive_ShouldReturnFiveCheapestFlights(){
+    void getTopFlights_WhenListLongerThanFive_ShouldReturnFiveCheapestFlights() {
 
         List<FlightResponseDto> flights = List.of(
-                new FlightResponseDto("Warszawa", "Berlin", "2026-05-01", "2026-05-10", "LOT", 210.00),
-                new FlightResponseDto("Warszawa", "Berlin", "2026-05-01", "2026-05-10", "Lufthansa", 320.00),
-                new FlightResponseDto("Warszawa", "Berlin", "2026-05-01", "2026-05-10", "Ryanair", 89.99),
-                new FlightResponseDto("Warszawa", "Berlin", "2026-05-01", "2026-05-10", "Emirates", 2500.00),
-                new FlightResponseDto("Warszawa", "Berlin", "2026-05-01", "2026-05-10", "Air France", 450.50),
-                new FlightResponseDto("Warszawa", "Berlin", "2026-05-01", "2026-05-10", "Wizz Air", 150.00)
+                new FlightResponseDto(
+                        "Warszawa", "Berlin",
+                        "2026-05-01T10:00",
+                        "2026-05-01T11:30",
+                        "2026-05-10T18:00",
+                        "2026-05-10T19:30",
+                        "LOT",
+                        210.00
+                ),
+                new FlightResponseDto(
+                        "Warszawa", "Berlin",
+                        "2026-05-01T09:00",
+                        "2026-05-01T10:30",
+                        "2026-05-10T17:00",
+                        "2026-05-10T18:30",
+                        "Lufthansa",
+                        320.00
+                ),
+                new FlightResponseDto(
+                        "Warszawa", "Berlin",
+                        "2026-05-01T08:00",
+                        "2026-05-01T09:30",
+                        "2026-05-10T16:00",
+                        "2026-05-10T17:30",
+                        "Ryanair",
+                        89.99
+                ),
+                new FlightResponseDto(
+                        "Warszawa", "Berlin",
+                        "2026-05-01T07:00",
+                        "2026-05-01T08:30",
+                        "2026-05-10T15:00",
+                        "2026-05-10T16:30",
+                        "Emirates",
+                        2500.00
+                ),
+                new FlightResponseDto(
+                        "Warszawa", "Berlin",
+                        "2026-05-01T06:00",
+                        "2026-05-01T07:30",
+                        "2026-05-10T14:00",
+                        "2026-05-10T15:30",
+                        "Air France",
+                        450.50
+                ),
+                new FlightResponseDto(
+                        "Warszawa", "Berlin",
+                        "2026-05-01T05:00",
+                        "2026-05-01T06:30",
+                        "2026-05-10T13:00",
+                        "2026-05-10T14:30",
+                        "Wizz Air",
+                        150.00
+                )
         );
 
         List<FlightResponseDto> expectedResult = List.of(
-                new FlightResponseDto("Warszawa", "Berlin", "2026-05-01", "2026-05-10", "Ryanair", 89.99),
-                new FlightResponseDto("Warszawa", "Berlin", "2026-05-01", "2026-05-10", "Wizz Air", 150.00),
-                new FlightResponseDto("Warszawa", "Berlin", "2026-05-01", "2026-05-10", "LOT", 210.00),
-                new FlightResponseDto("Warszawa", "Berlin", "2026-05-01", "2026-05-10", "Lufthansa", 320.00),
-                new FlightResponseDto("Warszawa", "Berlin", "2026-05-01", "2026-05-10", "Air France", 450.50)
+                new FlightResponseDto(
+                        "Warszawa", "Berlin",
+                        "2026-05-01T08:00",
+                        "2026-05-01T09:30",
+                        "2026-05-10T16:00",
+                        "2026-05-10T17:30",
+                        "Ryanair",
+                        89.99
+                ),
+                new FlightResponseDto(
+                        "Warszawa", "Berlin",
+                        "2026-05-01T05:00",
+                        "2026-05-01T06:30",
+                        "2026-05-10T13:00",
+                        "2026-05-10T14:30",
+                        "Wizz Air",
+                        150.00
+                ),
+                new FlightResponseDto(
+                        "Warszawa", "Berlin",
+                        "2026-05-01T10:00",
+                        "2026-05-01T11:30",
+                        "2026-05-10T18:00",
+                        "2026-05-10T19:30",
+                        "LOT",
+                        210.00
+                ),
+                new FlightResponseDto(
+                        "Warszawa", "Berlin",
+                        "2026-05-01T09:00",
+                        "2026-05-01T10:30",
+                        "2026-05-10T17:00",
+                        "2026-05-10T18:30",
+                        "Lufthansa",
+                        320.00
+                ),
+                new FlightResponseDto(
+                        "Warszawa", "Berlin",
+                        "2026-05-01T06:00",
+                        "2026-05-01T07:30",
+                        "2026-05-10T14:00",
+                        "2026-05-10T15:30",
+                        "Air France",
+                        450.50
+                )
         );
 
         List<FlightResponseDto> result = flightService.getTopFlights(flights);
