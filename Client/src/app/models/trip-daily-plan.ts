@@ -1,5 +1,5 @@
 export interface TripDailyPlan {
-dayNumber: string;
+dayNumber: number;
 morningPlan: string;
 morningWhy: string;
 afternoonPlan: string;
