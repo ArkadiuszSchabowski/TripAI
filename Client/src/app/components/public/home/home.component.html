@@ -8,9 +8,9 @@
     <mat-card class="trip">
       <mat-card-title id="card-title">Plan your flight</mat-card-title>
       <mat-card-content class="trip">
-        <mat-form-field appearance="outline">
-          <mat-label>From city</mat-label>
-          <input matInput formControlName="fromCity" />
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Origin city</mat-label>
+          <input matInput formControlName="fromCity" placeholder="Where are you flying from?" />
           <mat-error
             *ngIf="
               form.get('fromCity')?.hasError('required') &&
@@ -29,9 +29,9 @@
           </mat-error>
         </mat-form-field>
 
-        <mat-form-field appearance="outline">
-          <mat-label>To city</mat-label>
-          <input matInput formControlName="toCity" />
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Destination city</mat-label>
+          <input matInput formControlName="toCity" placeholder="Where are you going?" />
           <mat-error
             *ngIf="
               form.get('toCity')?.hasError('required') &&
@@ -50,7 +50,7 @@
           </mat-error>
         </mat-form-field>
 
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="outline" class="form-field">
           <mat-label>Travel dates</mat-label>
 
           <div formGroupName="dateRange" id="container-date-range">
@@ -69,6 +69,16 @@
             [for]="picker"
           ></mat-datepicker-toggle>
           <mat-date-range-picker #picker></mat-date-range-picker>
+                    <mat-error
+            *ngIf="
+              (form.get('dateRange.start')?.hasError('required') &&
+              form.get('dateRange.start')?.touched) ||
+              (form.get('dateRange.end')?.hasError('required') &&
+              form.get('dateRange.end')?.touched) 
+            "
+          >
+            Travel dates are required.
+          </mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>Travelers</mat-label>

@@ -12,19 +12,13 @@ describe('HomeComponent', () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
 
-  let toastrService: ToastrService;
-
-  class MockToastrService {}
-
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [HomeComponent],
-      imports: [ BrowserAnimationsModule, HttpClientTestingModule, MaterialModule, ReactiveFormsModule],
-      providers: [{ provide: ToastrService, useClass: MockToastrService }],
+      imports: [ BrowserAnimationsModule, HttpClientTestingModule, MaterialModule, ReactiveFormsModule]
     });
     fixture = TestBed.createComponent(HomeComponent);
     component = fixture.componentInstance;
-    toastrService = TestBed.inject(ToastrService);
     fixture.detectChanges();
   });
 
