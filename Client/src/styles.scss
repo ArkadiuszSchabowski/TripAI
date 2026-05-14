@@ -19,7 +19,7 @@ $theme: mat.define-light-theme(
 @include mat.all-component-themes($theme);
 
 mat-form-field {
-  width: 300px;
+  width: 400px;
 }
 
 * {

@@ -13,7 +13,6 @@ export class TripService {
   constructor(private http: HttpClient) { }
 
     showAgentTripPlan(dto: TripRequest){
-      console.log(dto);
     return this.http.post<TripAgentResponse>(this.apiUrl + 'trip/with-agent', dto)
   }
 }

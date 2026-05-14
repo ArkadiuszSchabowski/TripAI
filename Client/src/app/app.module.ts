@@ -5,10 +5,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './components/public/home/home.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { MaterialModule } from './modules/material/material.module';
+import { ErrorInterceptor } from './interceptors/error-interceptor.interceptor';
 
 @NgModule({
   declarations: [AppComponent, HomeComponent],
@@ -21,7 +22,9 @@ import { MaterialModule } from './modules/material/material.module';
     ReactiveFormsModule,
     ToastrModule.forRoot({}),
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
