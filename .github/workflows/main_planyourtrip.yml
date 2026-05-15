@@ -9,8 +9,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
 
     steps:
       - uses: actions/checkout@v4
@@ -21,7 +19,7 @@ jobs:
           java-version: '17'
           distribution: 'microsoft'
 
-      - name: Build with Maven (with tests env)
+      - name: Build with Maven
         working-directory: Backend/TripAI_Backend
         env:
           DUFFEL_API_KEY: ${{ secrets.DUFFEL_API_KEY }}
@@ -40,9 +38,6 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: build
-    permissions:
-      id-token: write
-      contents: read
 
     steps:
       - name: Download artifact
@@ -50,49 +45,9 @@ jobs:
         with:
           name: java-app
 
-      - name: Login to Azure
-        uses: azure/login@v2
-        with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_6A58F1D1F3FF4240A3C09EED3AED2D89 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_3DF9072CE7404848889C8B64E38CF09E }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_E0A77F77B88E4313AE19AD9BA0296E74 }}
-
-      - name: Set Azure App Settings (from GitHub Secrets)
-        uses: azure/appservice-settings@v1
-        with:
-          app-name: 'PlanYourTrip'
-          app-settings-json: |
-            [
-              {
-                "name": "duffel.api.key",
-                "value": "${{ secrets.DUFFEL_API_KEY }}",
-                "slotSetting": false
-              },
-              {
-                "name": "duffel.api.base.url",
-                "value": "${{ secrets.DUFFEL_API_BASE_URL }}",
-                "slotSetting": false
-              },
-              {
-                "name": "gemini.api.key",
-                "value": "${{ secrets.GEMINI_API_KEY }}",
-                "slotSetting": false
-              },
-              {
-                "name": "gemini.api.base.url",
-                "value": "${{ secrets.GEMINI_API_BASE_URL }}",
-                "slotSetting": false
-              },
-              {
-                "name": "model.name",
-                "value": "${{ secrets.MODEL_NAME }}",
-                "slotSetting": false
-              }
-            ]
-            
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'PlanYourTrip'
-          slot-name: 'Production'
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
           package: '*.jar'
