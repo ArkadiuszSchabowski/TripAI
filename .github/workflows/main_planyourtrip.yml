@@ -1,4 +1,7 @@
-name: Build and deploy JAR app to Azure Web App - PlanYourTrip
+# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
+# More GitHub Actions for Azure: https://github.com/Azure/actions
+
+name: Build and deploy JAR app to Azure Web App - planyourtrip
 
 on:
   push:
@@ -10,7 +13,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: read #This is required for actions/checkout
 
     steps:
       - uses: actions/checkout@v4
@@ -21,45 +24,40 @@ jobs:
           java-version: '17'
           distribution: 'microsoft'
 
-      - name: Build with Maven (with tests env)
-        working-directory: Backend/TripAI_Backend
-        env:
-          DUFFEL_API_KEY: ${{ secrets.DUFFEL_API_KEY }}
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          DUFFEL_API_BASE_URL: ${{ secrets.DUFFEL_API_BASE_URL }}
-          GEMINI_API_BASE_URL: ${{ secrets.GEMINI_API_BASE_URL }}
-          MODEL_NAME: ${{ secrets.MODEL_NAME }}
-        run: mvn clean package
+      - name: Build with Maven
+        run: mvn clean install
 
-      - name: Upload artifact
+      - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: java-app
-          path: Backend/TripAI_Backend/target/*.jar
+          path: '${{ github.workspace }}/target/*.jar'
 
   deploy:
     runs-on: ubuntu-latest
     needs: build
     permissions:
-      id-token: write
-      contents: read
-
+      id-token: write #This is required for requesting the JWT
+      contents: read #This is required for actions/checkout
+  
     steps:
-      - name: Download artifact
+      - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
           name: java-app
-
+      
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_0F4D6C3D89B048AEBA9C02B6DED7C6B8 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_80B1B436223D41149C414B523353AA97 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_DFC9B853C5D8466D9B0B255797CCC398 }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_6A58F1D1F3FF4240A3C09EED3AED2D89 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_3DF9072CE7404848889C8B64E38CF09E }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_E0A77F77B88E4313AE19AD9BA0296E74 }}
 
       - name: Deploy to Azure Web App
+        id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'PlanYourTrip'
+          app-name: 'planyourtrip'
           slot-name: 'Production'
           package: '*.jar'
+          
