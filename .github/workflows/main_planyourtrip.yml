@@ -57,6 +57,39 @@ jobs:
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_3DF9072CE7404848889C8B64E38CF09E }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_E0A77F77B88E4313AE19AD9BA0296E74 }}
 
+      - name: Set Azure App Settings (from GitHub Secrets)
+        uses: azure/appservice-settings@v1
+        with:
+          app-name: 'PlanYourTrip'
+          app-settings-json: |
+            [
+              {
+                "name": "duffel.api.key",
+                "value": "${{ secrets.DUFFEL_API_KEY }}",
+                "slotSetting": false
+              },
+              {
+                "name": "duffel.api.base.url",
+                "value": "${{ secrets.DUFFEL_API_BASE_URL }}",
+                "slotSetting": false
+              },
+              {
+                "name": "gemini.api.key",
+                "value": "${{ secrets.GEMINI_API_KEY }}",
+                "slotSetting": false
+              },
+              {
+                "name": "gemini.api.base.url",
+                "value": "${{ secrets.GEMINI_API_BASE_URL }}",
+                "slotSetting": false
+              },
+              {
+                "name": "model.name",
+                "value": "${{ secrets.MODEL_NAME }}",
+                "slotSetting": false
+              }
+            ]
+            
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
