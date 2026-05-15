@@ -46,3 +46,4 @@ dataSources.local.xml
 
 error_logs.log
 application.properties
+logback.xml
