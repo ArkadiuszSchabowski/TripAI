@@ -1,51 +1,97 @@
 @use "@angular/material" as mat;
 @use "src/styles" as theme;
 
-mat-card.trip {
-  width: 600px;
+#home-component {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100%;
+  min-height: 550px;
   min-width: 400px;
-  height: auto;
+}
+
+#form-component-text,
+#form-component {
+  display: flex;
+  width: 100%;
+}
+
+#form-component-text {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 20%;
+}
+
+#form-component {
+  height: 80%;
+}
+
+#title-ai-label {
+  padding-left: 5px;
+}
+
+.title {
+  display: flex;
+  flex-direction: row;
+  font-size: 24px;
+  font-weight: bolder;
+}
+
+.subtitle {
+  padding-top: 5px;
+  font-size: 16px;
+}
+
+.accent {
+  color: mat.get-color-from-palette(theme.$accent);
+}
+form {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+mat-card.trip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 500px;
 }
 
 mat-card-content.trip {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   width: 100%;
   height: 100%;
+  background-color: white;
 }
 
-mat-form-field.form-field {
-  padding-bottom: 10px;
-}
-
-#home-component,
-form {
-  width: 100%;
-  height: auto;
-}
-
-#home-component {
-  flex-direction: column;
-  padding: 50px 0;
-}
-
-#home-component,
-form,
 #card-title {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
+  font-size: 22px;
+  font-weight: 500;
+  padding: 10px 0;
+  margin-bottom: 20px;
+  color: white;
+  background-color: mat.get-color-from-palette(theme.$accent);
+}
+#submit-button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 10px;
 }
 
-#card-title {
-  width: 100%;
-  height: auto;
-  font-size: 24px;
-  margin: 20px 0;
-  padding: 10px 0;
-  background-color: mat.get-color-from-palette(theme.$accent);
+#back-button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0 20px 0;
 }
 
 #trip-container {
@@ -53,63 +99,80 @@ form,
   flex-direction: column;
   width: 100%;
   height: auto;
-  padding: 0 50px;
+  padding: 20px;
 }
 
-#submit-button {
-  margin-top: 15px;
-}
-
-#back-button-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 10px 0;
-  padding-top: 20px;
-}
-
-.day-card,
-.section,
-.time-of-day {
-  display: flex;
-  flex-direction: column;
-}
-.container-time-of-the-day {
-  display: flex;
-  flex-direction: row;
+mat-form-field.form-field {
   padding: 5px 0;
+  min-width: 370px;
 }
 
-.dates,
-.people,
-.cities,
-.flight-details-item,
-.cost-item {
-  font-weight: bolder;
-  padding: 3px 0;
-}
-
-.day-number {
-  font-weight: bolder;
-  padding: 3px 0 10px 0;
-}
-
-.cost,
-.flight-details {
-  font-weight: bolder;
+.flight-details{
   padding: 10px 0;
 }
 
-.time-of-day {
-  padding-right: 20px;
-  min-width: 120px;
+.cities,
+.dates,
+.people,
+.flight-details-item,
+.cost-item {
+  font-weight: bold;
+  padding: 3px 0;
+}
+.container-time-of-day {
+  padding-top: 5px;
 }
 
-.day-card {
-  padding-top: 20px;
+.day-number{
+  padding-top: 15px;
+  font-weight: bold;
+}
+
+.time-of-day{
+  padding: 2px 0;
+}
+
+.time-of-day-text {
+  padding: 5px 0;
 }
 
 .intro,
-.closing-feeling {
-  margin-top: 10px;
+.closing-feeling{
+  padding: 15px 0 10px 0;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1199px) {
+  #home-component {
+    display: flex;
+    flex-direction: row;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url(../../../../assets/home/home_background.png);
+  }
+  #form-component-text {
+    height: 100%;
+    padding-bottom: 220px;
+  }
+  #form-component {
+    padding-right: 10px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  #home-component {
+    display: flex;
+    flex-direction: row;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url(../../../../assets/home/home_background.png);
+  }
+  #form-component-text {
+    height: 100%;
+    padding-bottom: 220px;
+  }
+  #form-component {
+    padding-right: 20px;
+  }
 }

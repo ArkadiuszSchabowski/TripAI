@@ -1,220 +1,252 @@
-<div id="home-component" class="component">
-  <form
-    [formGroup]="form"
-    (ngSubmit)="loadTrip()"
-    autocomplete="off"
-    *ngIf="!tripAgentResponse"
-  >
-    <mat-card class="trip">
-      <mat-card-title id="card-title">Plan your flight</mat-card-title>
-      <mat-card-content class="trip">
-        <mat-form-field appearance="outline" class="form-field">
-          <mat-label>Origin city</mat-label>
-          <input matInput formControlName="fromCity" placeholder="Where are you flying from?" />
-          <mat-error
-            *ngIf="
-              form.get('fromCity')?.hasError('required') &&
-              form.get('fromCity')?.touched
-            "
-          >
-            City is required.
-          </mat-error>
-          <mat-error
-            *ngIf="
-              form.get('fromCity')?.hasError('maxlength') &&
-              form.get('fromCity')?.touched
-            "
-          >
-            City must be between 1 and 50 characters.
-          </mat-error>
-        </mat-form-field>
+<div id="home-component" class="component" *ngIf="!tripAgentResponse">
+  <div id="form-component-text">
+    <div class="title">
+      Plan unforgettable trips with
+      <div id="title-ai-label" class="accent">AI</div>
+    </div>
+    <div class="subtitle">Create plans faster, easier, and better.</div>
+    <div class="subtitle">Turn ideas into real journeys.</div>
+  </div>
+  <div id="form-component">
+    <form [formGroup]="form" (ngSubmit)="loadTrip()" autocomplete="off">
+      <mat-card class="trip">
+        <mat-card-title id="card-title">Describe your trip</mat-card-title>
+        <mat-card-content class="trip">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Origin city</mat-label>
+            <input
+              matInput
+              formControlName="fromCity"
+              placeholder="Where are you flying from?"
+            />
+            <mat-error
+              *ngIf="
+                form.get('fromCity')?.hasError('required') &&
+                form.get('fromCity')?.touched
+              "
+            >
+              City is required.
+            </mat-error>
+            <mat-error
+              *ngIf="
+                form.get('fromCity')?.hasError('maxlength') &&
+                form.get('fromCity')?.touched
+              "
+            >
+              City must be between 1 and 50 characters.
+            </mat-error>
+          </mat-form-field>
 
-        <mat-form-field appearance="outline" class="form-field">
-          <mat-label>Destination city</mat-label>
-          <input matInput formControlName="toCity" placeholder="Where are you going?" />
-          <mat-error
-            *ngIf="
-              form.get('toCity')?.hasError('required') &&
-              form.get('toCity')?.touched
-            "
-          >
-            City is required.
-          </mat-error>
-          <mat-error
-            *ngIf="
-              form.get('toCity')?.hasError('maxlength') &&
-              form.get('toCity')?.touched
-            "
-          >
-            City must be between 1 and 50 characters.
-          </mat-error>
-        </mat-form-field>
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Destination city</mat-label>
+            <input
+              matInput
+              formControlName="toCity"
+              placeholder="Where are you going?"
+            />
+            <mat-error
+              *ngIf="
+                form.get('toCity')?.hasError('required') &&
+                form.get('toCity')?.touched
+              "
+            >
+              City is required.
+            </mat-error>
+            <mat-error
+              *ngIf="
+                form.get('toCity')?.hasError('maxlength') &&
+                form.get('toCity')?.touched
+              "
+            >
+              City must be between 1 and 50 characters.
+            </mat-error>
+          </mat-form-field>
 
-        <mat-form-field appearance="outline" class="form-field">
-          <mat-label>Travel dates</mat-label>
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Travel dates</mat-label>
 
-          <div formGroupName="dateRange" id="container-date-range">
-            <mat-date-range-input [rangePicker]="picker">
-              <input
-                matStartDate
-                formControlName="start"
-                placeholder="Start date"
-              />
-              <input matEndDate formControlName="end" placeholder="End date" />
-            </mat-date-range-input>
+            <div formGroupName="dateRange" id="container-date-range">
+              <mat-date-range-input [rangePicker]="picker">
+                <input
+                  matStartDate
+                  formControlName="start"
+                  placeholder="Start date"
+                />
+                <input
+                  matEndDate
+                  formControlName="end"
+                  placeholder="End date"
+                />
+              </mat-date-range-input>
+            </div>
+
+            <mat-datepicker-toggle
+              matIconSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+            <mat-error
+              *ngIf="
+                (form.get('dateRange.start')?.hasError('required') &&
+                  form.get('dateRange.start')?.touched) ||
+                (form.get('dateRange.end')?.hasError('required') &&
+                  form.get('dateRange.end')?.touched)
+              "
+            >
+              Travel dates are required.
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Travelers</mat-label>
+
+            <input
+              matInput
+              type="number"
+              formControlName="numberOfTravelers"
+              min="1"
+              max="10"
+            />
+
+            <mat-error
+              *ngIf="
+                form.get('numberOfTravelers')?.hasError('required') &&
+                form.get('numberOfTravelers')?.touched
+              "
+            >
+              Please select number of travelers.
+            </mat-error>
+
+            <mat-error
+              *ngIf="
+                form.get('numberOfTravelers')?.hasError('min') ||
+                form.get('numberOfTravelers')?.hasError('max')
+              "
+            >
+              Number of people must be between 1 and 10.
+            </mat-error>
+          </mat-form-field>
+          <div id="submit-button-container">
+            <button
+              id="submit-button"
+              mat-raised-button
+              color="accent"
+              type="submit"
+            >
+              Ok
+            </button>
           </div>
+        </mat-card-content>
+      </mat-card>
+    </form>
+  </div>
+</div>
+<div id="trip-container" *ngIf="tripAgentResponse">
+  <div>
+    <div class="cities">
+      Route: {{ tripAgentResponse.information.originCity }} →
+      {{ tripAgentResponse.information.destinationCity }}
+    </div>
+  </div>
 
-          <mat-datepicker-toggle
-            matIconSuffix
-            [for]="picker"
-          ></mat-datepicker-toggle>
-          <mat-date-range-picker #picker></mat-date-range-picker>
-                    <mat-error
-            *ngIf="
-              (form.get('dateRange.start')?.hasError('required') &&
-              form.get('dateRange.start')?.touched) ||
-              (form.get('dateRange.end')?.hasError('required') &&
-              form.get('dateRange.end')?.touched) 
-            "
-          >
-            Travel dates are required.
-          </mat-error>
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>Travelers</mat-label>
+  <div>
+    <div class="dates">
+      Travel Dates:
+      {{ tripAgentResponse.information.departureDateFrom }} -
+      {{ tripAgentResponse.information.departureDateTo }}
+    </div>
 
-          <input
-            matInput
-            type="number"
-            formControlName="numberOfTravelers"
-            min="1"
-            max="10"
-          />
+    <div class="people">
+      Travelers:
+      {{ tripAgentResponse.information.numberOfPeople }} traveler(s)
+    </div>
 
-          <mat-error
-            *ngIf="
-              form.get('numberOfTravelers')?.hasError('required') &&
-              form.get('numberOfTravelers')?.touched
-            "
-          >
-            Please select number of travelers.
-          </mat-error>
-
-          <mat-error
-            *ngIf="
-              form.get('numberOfTravelers')?.hasError('min') ||
-              form.get('numberOfTravelers')?.hasError('max')
-            "
-          >
-            Number of people must be between 1 and 10.
-          </mat-error>
-        </mat-form-field>
-        <div id="submit-button-container">
-          <button
-            id="submit-button"
-            mat-raised-button
-            color="accent"
-            type="submit"
-          >
-            Ok
-          </button>
-        </div>
-      </mat-card-content>
-    </mat-card>
-  </form>
-  <div id="trip-container" *ngIf="tripAgentResponse">
-    <div>
-      <div class="cities">
-        Route: {{ tripAgentResponse.information.originCity }} →
-        {{ tripAgentResponse.information.destinationCity }}
+    <div class="flight-details">
+      <div class="flight-details-item">Flight details:</div>
+      <div class="flight-details-item">
+        Recommended airline:
+        {{ tripAgentResponse.details.recommendedAirline }}
+      </div>
+      <div class="flight-details-item">
+        Outbound departure: {{ tripAgentResponse.details.outboundDeparture }}
+      </div>
+      <div class="flight-details-item">
+        Outbound arrival: {{ tripAgentResponse.details.outboundArrival }}
+      </div>
+      <div class="flight-details-item">
+        Return departure: {{ tripAgentResponse.details.returnDeparture }}
+      </div>
+      <div class="flight-details-item">
+        Return arrival: {{ tripAgentResponse.details.returnArrival }}
       </div>
     </div>
 
-    <div>
-      <div class="dates">
-        Travel Dates:
-        {{ tripAgentResponse.information.departureDateFrom }} -
-        {{ tripAgentResponse.information.departureDateTo }}
+    <div class="cost">
+      <div class="cost-item">
+        Total trip cost:
+        {{ tripAgentResponse.costs.estimatedTotalTripCost }}
+        {{ tripAgentResponse.information.currency }}
+      </div>
+      <div class="cost-item">
+        Ticket cost:
+        {{ tripAgentResponse.costs.estimatedTicketCost }}
+        {{ tripAgentResponse.information.currency }}
+      </div>
+      <div class="cost-item">
+        Estimated accomamodation cost:
+        {{ tripAgentResponse.costs.estimatedAccommodationCost }}
+        {{ tripAgentResponse.information.currency }}
+      </div>
+      <div class="cost-item">
+        Estimated food cost:
+        {{ tripAgentResponse.costs.estimatedFoodCost }}
+        {{ tripAgentResponse.information.currency }}
+      </div>
+    </div>
+  </div>
+  <div>
+    <div class="intro">{{ tripAgentResponse.tripIntro }}</div>
+  </div>
+
+  <div class="day-card" *ngFor="let day of tripAgentResponse.dailyPlan">
+    <div class="day-number">Day {{ day.dayNumber }}</div>
+
+    <div class="section">
+      <div class="container-time-of-day" *ngIf="day.morningPlan">
+        <div class="time-of-day">🌅 Morning</div>
+        <div class="time-of-day-text">
+          {{ day.morningPlan }} {{ day.morningWhy }}
+        </div>
       </div>
 
-      <div class="people">
-        Travelers:
-        {{ tripAgentResponse.information.numberOfPeople }} traveler(s)
+      <div class="container-time-of-day" *ngIf="day.afternoonPlan">
+        <div class="time-of-day">☀️ Afternoon</div>
+        <div class="time-of-day-text">
+          {{ day.afternoonPlan }} {{ day.afternoonWhy }}
+        </div>
       </div>
-
-      <div class="flight-details">
-        <div class="flight-details-item">Flight details:</div>
-        <div class="flight-details-item">Recommended airline: {{ tripAgentResponse.details.recommendedAirline }}</div>
-        <div class="flight-details-item">Outbound departure: {{ tripAgentResponse.details.outboundDeparture }}</div>
-        <div class="flight-details-item">Outbound arrival: {{ tripAgentResponse.details.outboundArrival }}</div>
-        <div class="flight-details-item">Return departure: {{ tripAgentResponse.details.returnDeparture }}</div>
-        <div class="flight-details-item">Return arrival: {{ tripAgentResponse.details.returnArrival }}</div>
-      </div>
-
-      <div class="cost">
-        <div class="cost-item">
-          Total trip cost:
-          {{ tripAgentResponse.costs.estimatedTotalTripCost }} {{tripAgentResponse.information.currency}}
-        </div>
-        <div class="cost-item">
-          Ticket cost:
-          {{ tripAgentResponse.costs.estimatedTicketCost }} {{tripAgentResponse.information.currency}}
-        </div>
-        <div class="cost-item">
-          Estimated accomamodation cost:
-          {{ tripAgentResponse.costs.estimatedAccommodationCost }} {{tripAgentResponse.information.currency}}
-        </div>
-        <div class="cost-item">
-          Estimated food cost:
-          {{ tripAgentResponse.costs.estimatedFoodCost }} {{tripAgentResponse.information.currency}}
+      <div class="container-time-of-day" *ngIf="day.tonightPlan">
+        <div class="time-of-day">🌙 Evening</div>
+        <div class="time-of-day-text">
+          {{ day.tonightPlan }} {{ day.tonightWhy }}
         </div>
       </div>
     </div>
-    <div>
-      <div class="intro">{{ tripAgentResponse.tripIntro }}</div>
+  </div>
+
+  <div>
+    <div class="closing-feeling">
+      {{ tripAgentResponse.closingFeeling }}
     </div>
+  </div>
 
-    <div class="day-card" *ngFor="let day of tripAgentResponse.dailyPlan">
-      <div class="day-number">Day {{ day.dayNumber }}</div>
-
-      <div class="section">
-        <div class="container-time-of-the-day" *ngIf="day.morningPlan">
-          <div class="time-of-day">🌅 Morning</div>
-          <div class="time-of-day-text">
-            {{ day.morningPlan }} {{ day.morningWhy }}
-          </div>
-        </div>
-
-        <div class="container-time-of-the-day" *ngIf="day.afternoonPlan">
-          <div class="time-of-day">☀️ Afternoon</div>
-          <div class="time-of-the-day-text">
-            {{ day.afternoonPlan }} {{ day.afternoonWhy }}
-          </div>
-        </div>
-        <div class="container-time-of-the-day" *ngIf="day.tonightPlan">
-          <div class="time-of-day">🌙 Evening</div>
-          <div class="time-of-the-day-text">
-            {{ day.tonightPlan }} {{ day.tonightWhy }}
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div>
-      <div class="closing-feeling">
-        {{ tripAgentResponse.closingFeeling }}
-      </div>
-    </div>
-
-    <div id="back-button-container">
-      <button
-        id="back-button"
-        mat-raised-button
-        color="accent"
-        (click)="resetTrip()"
-      >
-        Plan another trip
-      </button>
-    </div>
+  <div id="back-button-container">
+    <button
+      id="back-button"
+      mat-raised-button
+      color="accent"
+      (click)="resetTrip()"
+    >
+      Plan another trip
+    </button>
   </div>
 </div>
