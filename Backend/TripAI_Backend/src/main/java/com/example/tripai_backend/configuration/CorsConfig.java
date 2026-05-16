@@ -16,7 +16,7 @@ public class CorsConfig {
             public void addCorsMappings(@NonNull CorsRegistry registry) {
                 registry.addMapping("/api/**")
                         .allowedOrigins("http://localhost:4200",
-                                "https://plan-your-trip.azurewebsites.net")
+                                "https://plan-your-trip-ai.netlify.app")
                         .allowedMethods("*")
                         .allowedHeaders("*")
                         .allowCredentials(true);
