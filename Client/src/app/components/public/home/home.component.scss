@@ -59,8 +59,8 @@ mat-card.trip {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 380px;
-  height: 500px;
+  width: 364px;
+  height: 480px;
 }
 
 mat-card-content.trip {
@@ -160,6 +160,9 @@ mat-form-field.form-field {
   }
   #form-component {
     padding-right: 10px;
+  }
+    mat-card.trip {
+    width: 380px;
   }
 }
 
