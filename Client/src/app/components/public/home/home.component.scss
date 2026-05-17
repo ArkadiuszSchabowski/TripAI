@@ -91,13 +91,6 @@ mat-card-content.trip {
   padding-top: 10px;
 }
 
-#back-button-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 10px 0 20px 0;
-}
-
 #trip-container {
   display: flex;
   flex-direction: column;
@@ -109,40 +102,6 @@ mat-card-content.trip {
 mat-form-field.form-field {
   padding: 5px 0;
   width: 360px;
-}
-
-.flight-details {
-  padding: 10px 0;
-}
-
-.cities,
-.dates,
-.people,
-.flight-details-item,
-.cost-item {
-  font-weight: bold;
-  padding: 3px 0;
-}
-.container-time-of-day {
-  padding-top: 5px;
-}
-
-.day-number {
-  padding-top: 15px;
-  font-weight: bold;
-}
-
-.time-of-day {
-  padding: 2px 0;
-}
-
-.time-of-day-text {
-  padding: 5px 0;
-}
-
-.intro,
-.closing-feeling {
-  padding: 15px 0 10px 0;
 }
 
 @media screen and (min-width: 768px) and (max-width: 1199px) {
