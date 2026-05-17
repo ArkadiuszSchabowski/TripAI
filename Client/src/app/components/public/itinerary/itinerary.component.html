@@ -1,0 +1,137 @@
+<div id="trip-container" *ngIf="tripAgentResponse">
+  <div id="trip-information-container">
+    <div id="mat-card-left-container">
+      <div id="mat-card-text">
+        <mat-card class="mat-card-six-image">
+          <div class="title">Your AI-Generated Itinerary</div>
+          <div class="subtitle">
+            Based on your preferences:
+            {{ tripAgentResponse.information.originCity }} →
+            {{ tripAgentResponse.information.destinationCity }}
+          </div>
+          <div class="dates">
+            Travel Dates:
+            {{ tripAgentResponse.information.departureDateFrom }} -
+            {{ tripAgentResponse.information.departureDateTo }}
+          </div>
+          <div class="people">
+            Travelers:
+            {{ tripAgentResponse.information.numberOfPeople }} traveler(s)
+          </div>
+        </mat-card>
+      </div>
+      <mat-card id="mat-card-left" class="mat-card-six-image">
+        <div id="mat-card-left-photo"></div>
+      </mat-card>
+    </div>
+
+    <div id="mat-card-middle-container">
+      <div id="mat-card-flight-details">
+        <mat-card class="mat-card-six-image">
+          <div>
+            <div class="flight-details-item">Flight details:</div>
+            <div class="flight-details-item">
+              Recommended airline:
+              {{ tripAgentResponse.details.recommendedAirline }}
+            </div>
+            <div class="flight-details-item">
+              Outbound departure:
+              {{ tripAgentResponse.details.outboundDeparture }}
+            </div>
+            <div class="flight-details-item">
+              Outbound arrival:
+              {{ tripAgentResponse.details.outboundArrival }}
+            </div>
+            <div class="flight-details-item">
+              Return departure:
+              {{ tripAgentResponse.details.returnDeparture }}
+            </div>
+            <div class="flight-details-item">
+              Return arrival: {{ tripAgentResponse.details.returnArrival }}
+            </div>
+          </div>
+        </mat-card>
+      </div>
+      <div id="mat-card-trip-details">
+        <mat-card class="mat-card-six-image">
+          <div class="cost">
+            <div class="cost-item">
+              Total trip cost:
+              {{ tripAgentResponse.costs.estimatedTotalTripCost }}
+              {{ tripAgentResponse.information.currency }}
+            </div>
+            <div class="cost-item">
+              Ticket cost:
+              {{ tripAgentResponse.costs.estimatedTicketCost }}
+              {{ tripAgentResponse.information.currency }}
+            </div>
+            <div class="cost-item">
+              Accommodation cost:
+              {{ tripAgentResponse.costs.estimatedAccommodationCost }}
+              {{ tripAgentResponse.information.currency }}
+            </div>
+            <div class="cost-item">
+              Food cost:
+              {{ tripAgentResponse.costs.estimatedFoodCost }}
+              {{ tripAgentResponse.information.currency }}
+            </div>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+
+    <div id="mat-card-right-container">
+      <mat-card id="mat-card-right" class="mat-card-six-image">
+        <div id="mat-card-right-photo"></div>
+      </mat-card>
+      <mat-card id="mat-card-intro" class="mat-card-six-image">
+        <div class="intro">{{ tripAgentResponse.tripIntro }}</div>
+      </mat-card>
+    </div>
+  </div>
+
+  <div class="day-card" *ngFor="let day of tripAgentResponse.dailyPlan">
+    <mat-card class="day-card">
+      <div class="day-number">Day {{ day.dayNumber }}</div>
+
+      <div class="section">
+        <div class="container-time-of-day" *ngIf="day.morningPlan">
+          <div class="time-of-day">🌅 Morning</div>
+          <div class="time-of-day-text">
+            {{ day.morningPlan }} {{ day.morningWhy }}
+          </div>
+        </div>
+
+        <div class="container-time-of-day" *ngIf="day.afternoonPlan">
+          <div class="time-of-day">☀️ Afternoon</div>
+          <div class="time-of-day-text">
+            {{ day.afternoonPlan }} {{ day.afternoonWhy }}
+          </div>
+        </div>
+        <div class="container-time-of-day" *ngIf="day.tonightPlan">
+          <div class="time-of-day">🌙 Evening</div>
+          <div class="time-of-day-text">
+            {{ day.tonightPlan }} {{ day.tonightWhy }}
+          </div>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+  <div>
+    <mat-card class="closing-feeling">
+        <div class="closing-feeling">
+          {{ tripAgentResponse.closingFeeling }}
+        </div>
+    </mat-card>
+  </div>
+
+  <div id="back-button-container">
+    <button
+      id="back-button"
+      mat-raised-button
+      (click)="backToHome()"
+    >
+      Home
+    </button>
+  </div>
+</div>

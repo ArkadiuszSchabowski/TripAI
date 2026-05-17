@@ -1,18 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { TripRequest } from '../../../models/trip-request';
 import { TripService } from '../../../_services/trip.service';
 import { TripDailyPlan } from '../../../models/trip-daily-plan';
 import { TripInformation } from '../../../models/trip-information';
-import { TripAgentResponse } from '../../../models/trip-agent-response';
+import { Router } from '@angular/router';
+import { TripStateService } from '../../../_services/trip-state.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent {
-  tripAgentResponse: TripAgentResponse | null = null;
+export class HomeComponent implements OnInit{
   tripInformation: TripInformation | null = null;
   days: TripDailyPlan[] = [];
 
@@ -32,8 +32,13 @@ export class HomeComponent {
 
   constructor(
     private fb: FormBuilder,
+    private router: Router,
     private tripService: TripService,
+    private tripStateService: TripStateService
   ) {}
+  ngOnInit(): void {
+    console.log(this.tripStateService.tripData$)
+  }
 
   loadTrip() {
     if (this.form.invalid) {
@@ -51,19 +56,9 @@ export class HomeComponent {
 
     this.tripService.showAgentTripPlan(dto).subscribe({
       next: (response) => {
-        this.tripAgentResponse = response;
-      },
-      error: (error) => {
-        console.log(error);
-        if (error.status === 400) {
-          this.form.reset();
-        }
+        this.tripStateService.setTripData(response);
+        this.router.navigateByUrl('/itinerary');
       },
     });
-  }
-
-  resetTrip() {
-    this.tripAgentResponse = null;
-    this.form.reset();
   }
 }

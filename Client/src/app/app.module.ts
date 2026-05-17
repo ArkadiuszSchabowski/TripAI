@@ -10,9 +10,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { MaterialModule } from './modules/material/material.module';
 import { ErrorInterceptor } from './interceptors/error-interceptor.interceptor';
+import { ItineraryComponent } from './components/public/itinerary/itinerary.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent],
+  declarations: [AppComponent, HomeComponent, ItineraryComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
