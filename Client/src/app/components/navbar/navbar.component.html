@@ -1,0 +1,67 @@
+<mat-toolbar id="toolbar-container">
+  <a mat-button [matMenuTriggerFor]="menu" id="mobile-menu-button">
+    <mat-icon>menu</mat-icon>
+  </a>
+  <mat-menu #menu="matMenu" id="mobile-navbar">
+    <a
+      mat-menu-item
+      *ngIf="isHomePage"
+      class="mobile-navbar-item"
+      (click)="scrollToSection('container-plan-trip')"
+      >PLAN TRIP</a
+    >
+    <a
+      mat-menu-item
+      *ngIf="isHomePage"
+      class="mobile-navbar-item"
+      (click)="scrollToSection('container-how-it-works')"
+      >HOW IT WORKS</a
+    >
+    <a
+      mat-menu-item
+      *ngIf="isItineraryPage"
+      class="mobile-navbar-item"
+      (click)="scrollToSection('trip-information-container')"
+      >OVERVIEW</a
+    >
+    <a
+      mat-menu-item
+      *ngIf="isItineraryPage"
+      class="mobile-navbar-item"
+      (click)="scrollToSection('day-card-section')"
+      >ITINERARY</a
+    >
+  </mat-menu>
+  <div id="desktop-navbar">
+    <div id="desktop-navbar-logo" class="logo"></div>
+    <a
+      mat-button
+      class="desktop-navbar-item"
+      (click)="scrollToSection('container-plan-trip')"
+      *ngIf="isHomePage"
+    >
+      PLAN TRIP</a
+    >
+    <a
+      mat-button
+      class="desktop-navbar-item"
+      (click)="scrollToSection('container-how-it-works')"
+      *ngIf="isHomePage"
+      >HOW IT WORKS</a
+    >
+    <a
+      mat-button
+      class="desktop-navbar-item"
+      (click)="scrollToSection('trip-information-container')"
+      *ngIf="isItineraryPage"
+      >OVERVIEW</a
+    >
+    <a
+      mat-button
+      class="desktop-navbar-item"
+      (click)="scrollToSection('day-card-section')"
+      *ngIf="isItineraryPage"
+      >ITINERARY</a
+    >
+  </div>
+</mat-toolbar>

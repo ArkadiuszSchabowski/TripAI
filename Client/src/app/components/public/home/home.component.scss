@@ -1,13 +1,17 @@
 @use "@angular/material" as mat;
 @use "src/styles" as theme;
 
-#home-component {
+.home-component {
   display: flex;
   flex-direction: column;
-  width: 100vw;
+  width: calc(100vw - 20px);
   height: 100%;
-  min-height: 550px;
+  min-height: 600px;
   min-width: 400px;
+  padding-top: 50px;
+}
+#container-how-it-works{
+
 }
 
 #form-component-text,
@@ -25,7 +29,8 @@
 }
 
 #form-component {
-  height: 80%;
+  height: 100%;
+  background-color: white;
 }
 
 #title-ai-label {
@@ -105,7 +110,7 @@ mat-form-field.form-field {
 }
 
 @media screen and (min-width: 768px) and (max-width: 1199px) {
-  #home-component {
+  #container-plan-trip {
     display: flex;
     flex-direction: row;
     background-position: center;
@@ -119,6 +124,7 @@ mat-form-field.form-field {
   }
   #form-component {
     padding-right: 10px;
+    background-color: transparent;
   }
     mat-card.trip {
     width: 380px;
@@ -126,7 +132,7 @@ mat-form-field.form-field {
 }
 
 @media screen and (min-width: 1200px) {
-  #home-component {
+  #container-plan-trip {
     display: flex;
     flex-direction: row;
     background-position: center;
@@ -140,6 +146,7 @@ mat-form-field.form-field {
   }
   #form-component {
     padding-right: 20px;
+    background-color: transparent;
   }
   mat-card.trip {
     width: 500px;

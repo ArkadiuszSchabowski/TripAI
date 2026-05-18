@@ -1,5 +1,5 @@
-<div id="trip-container" *ngIf="tripAgentResponse">
-  <div id="trip-information-container">
+<div id="trip-container" class="component" *ngIf="tripAgentResponse">
+  <section id="trip-information-container">
     <div id="mat-card-left-container">
       <div id="mat-card-text">
         <mat-card class="mat-card-six-image default">
@@ -88,9 +88,9 @@
         <div class="intro">{{ tripAgentResponse.tripIntro }}</div>
       </mat-card>
     </div>
-  </div>
+  </section>
 
-  <div class="day-card" *ngFor="let day of tripAgentResponse.dailyPlan">
+  <section id="day-card-section" class="day-card" *ngFor="let day of tripAgentResponse.dailyPlan">
     <mat-card class="day-card default">
       <div class="day-number">Day {{ day.dayNumber }}</div>
 
@@ -116,7 +116,7 @@
         </div>
       </div>
     </mat-card>
-  </div>
+  </section>
   <div>
     <mat-card class="closing-feeling default">
         <div class="closing-feeling">
