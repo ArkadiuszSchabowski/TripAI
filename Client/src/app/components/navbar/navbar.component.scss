@@ -1,0 +1,55 @@
+@use "@angular/material" as mat;
+@use "src/styles" as theme;
+
+#toolbar-container {
+  color: white;
+  background-color: mat.get-color-from-palette(theme.$accent);
+  border-bottom: 2px solid white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+#desktop-navbar{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding-right: 60%;
+}
+
+.desktop-navbar-item{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  height: 100%;
+}
+
+#desktop-navbar,
+#desktop-navbar-logo {
+  display: none;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1199px) {
+  #mobile-menu-button {
+    display: none;
+  }
+  #desktop-navbar,
+  #desktop-navbar-logo {
+    display: flex;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  #mobile-menu-button {
+    display: none;
+  }
+  #desktop-navbar,
+  #desktop-navbar-logo {
+    display: flex;
+  }
+}

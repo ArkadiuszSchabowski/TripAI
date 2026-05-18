@@ -1,10 +1,10 @@
-<div id="trip-container" *ngIf="tripAgentResponse">
-  <div id="trip-information-container">
+<div id="trip-container" class="component" *ngIf="tripAgentResponse">
+  <section id="trip-information-container">
     <div id="mat-card-left-container">
       <div id="mat-card-text">
-        <mat-card class="mat-card-six-image">
-          <div class="title">Your AI-Generated Itinerary</div>
-          <div class="subtitle">
+        <mat-card class="mat-card-six-image default">
+          <div id="mat-card-information-title" class="title">Your AI-Generated Itinerary</div>
+          <div id="mat-card-information-subtitle" class="subtitle">
             Based on your preferences:
             {{ tripAgentResponse.information.originCity }} →
             {{ tripAgentResponse.information.destinationCity }}
@@ -20,14 +20,14 @@
           </div>
         </mat-card>
       </div>
-      <mat-card id="mat-card-left" class="mat-card-six-image">
+      <mat-card id="mat-card-left" class="mat-card-six-image default">
         <div id="mat-card-left-photo"></div>
       </mat-card>
     </div>
 
     <div id="mat-card-middle-container">
       <div id="mat-card-flight-details">
-        <mat-card class="mat-card-six-image">
+        <mat-card class="mat-card-six-image default">
           <div>
             <div class="flight-details-item">Flight details:</div>
             <div class="flight-details-item">
@@ -53,7 +53,7 @@
         </mat-card>
       </div>
       <div id="mat-card-trip-details">
-        <mat-card class="mat-card-six-image">
+        <mat-card class="mat-card-six-image default">
           <div class="cost">
             <div class="cost-item">
               Total trip cost:
@@ -81,17 +81,17 @@
     </div>
 
     <div id="mat-card-right-container">
-      <mat-card id="mat-card-right" class="mat-card-six-image">
+      <mat-card id="mat-card-right" class="mat-card-six-image default">
         <div id="mat-card-right-photo"></div>
       </mat-card>
-      <mat-card id="mat-card-intro" class="mat-card-six-image">
+      <mat-card id="mat-card-intro" class="mat-card-six-image default">
         <div class="intro">{{ tripAgentResponse.tripIntro }}</div>
       </mat-card>
     </div>
-  </div>
+  </section>
 
-  <div class="day-card" *ngFor="let day of tripAgentResponse.dailyPlan">
-    <mat-card class="day-card">
+  <section id="day-card-section" class="day-card" *ngFor="let day of tripAgentResponse.dailyPlan">
+    <mat-card class="day-card default">
       <div class="day-number">Day {{ day.dayNumber }}</div>
 
       <div class="section">
@@ -116,9 +116,9 @@
         </div>
       </div>
     </mat-card>
-  </div>
+  </section>
   <div>
-    <mat-card class="closing-feeling">
+    <mat-card class="closing-feeling default">
         <div class="closing-feeling">
           {{ tripAgentResponse.closingFeeling }}
         </div>

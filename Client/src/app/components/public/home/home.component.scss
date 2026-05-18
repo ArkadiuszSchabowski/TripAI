@@ -1,13 +1,34 @@
 @use "@angular/material" as mat;
 @use "src/styles" as theme;
 
-#home-component {
+mat-form-field.form-field {
+  padding: 5px 0;
+  width: 360px;
+}
+
+.home-component {
   display: flex;
   flex-direction: column;
-  width: 100vw;
+  width: calc(100vw - 20px);
   height: 100%;
-  min-height: 550px;
+  min-height: 600px;
   min-width: 400px;
+  padding-top: 50px;
+}
+#container-how-it-works {
+  display: flex;
+  flex-direction: column;
+  width: calc(100vw - 20px);
+  height: 100%;
+  min-height: 600px;
+  min-width: 400px;
+}
+
+#photo-how-it-works {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  padding-top: 5px;
 }
 
 #form-component-text,
@@ -21,11 +42,12 @@
   justify-content: center;
   align-items: center;
   height: 20%;
-  min-height: 170px;
+  padding: 40px 0 20px 0;
 }
 
 #form-component {
-  height: 80%;
+  height: 100%;
+  background-color: white;
 }
 
 #title-ai-label {
@@ -59,7 +81,7 @@ mat-card.trip {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 364px;
+  width: 360px;
   height: 480px;
 }
 
@@ -99,13 +121,18 @@ mat-card-content.trip {
   padding: 20px;
 }
 
-mat-form-field.form-field {
-  padding: 5px 0;
-  width: 360px;
+#photo-how-it-works {
+  padding-top: 20px;
+}
+
+form{
+  display: flex;
+  height: auto;
+  min-height: 500px;
 }
 
 @media screen and (min-width: 768px) and (max-width: 1199px) {
-  #home-component {
+  #container-plan-trip {
     display: flex;
     flex-direction: row;
     background-position: center;
@@ -119,14 +146,18 @@ mat-form-field.form-field {
   }
   #form-component {
     padding-right: 10px;
+    background-color: transparent;
   }
-    mat-card.trip {
+  #photo-how-it-works {
+    padding-top: 5px;
+  }
+  mat-card.trip {
     width: 380px;
   }
 }
 
 @media screen and (min-width: 1200px) {
-  #home-component {
+  #container-plan-trip {
     display: flex;
     flex-direction: row;
     background-position: center;
@@ -140,6 +171,7 @@ mat-form-field.form-field {
   }
   #form-component {
     padding-right: 20px;
+    background-color: transparent;
   }
   mat-card.trip {
     width: 500px;
