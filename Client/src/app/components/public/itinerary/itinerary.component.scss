@@ -1,6 +1,12 @@
 @use "@angular/material" as mat;
 @use "src/styles" as theme;
 
+mat-card.default {
+  max-width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
 #trip-container {
   display: flex;
   flex-direction: column;
@@ -24,9 +30,17 @@
   padding: 10px 0 20px 0;
 }
 
+#back-button {
+  font-weight: bold;
+}
+
 #mat-card-left,
 #mat-card-right {
   display: none;
+}
+
+#mat-card-information-subtitle {
+  padding-top: 5px;
 }
 
 .flight-details {
@@ -52,6 +66,7 @@
 
 .time-of-day {
   padding: 2px 0;
+  font-weight: bold;
 }
 
 .time-of-day-text {
@@ -69,18 +84,12 @@
 }
 
 .subtitle {
-  padding-top: 5px;
   font-size: 16px;
   font-weight: bolder;
 }
-mat-card {
-  max-width: 100%;
-  margin-bottom: 10px;
-  padding: 10px;
-}
 
 @media screen and (min-width: 768px) and (max-width: 1199px) {
-  mat-card {
+  mat-card.default {
     margin-bottom: 0;
     padding: 0;
   }
@@ -105,19 +114,19 @@ mat-card {
 
   #trip-container {
     padding: 0;
-    min-width: 700px;
   }
+
   #trip-information-container {
     flex-direction: row;
-    font-weight: bold;
     justify-content: center;
     align-items: center;
-    width: 100%;
-    min-width: 700px;
+    min-width: 1250px;
     height: 100vh;
+    min-height: 650px;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    font-weight: bold;
   }
 
   #mat-card-left-container,
@@ -130,21 +139,20 @@ mat-card {
     margin: 10px;
   }
 
-  #mat-card-right-photo {
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    width: 100%;
-    height: 100%;
-    background-image: url(../../../../assets/itinerary/mat-card-bed.png);
-  }
-
+  #mat-card-right-photo,
   #mat-card-left-photo {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     width: 100%;
     height: 100%;
+  }
+
+  #mat-card-right-photo {
+    background-image: url(../../../../assets/itinerary/mat-card-bed.png);
+  }
+
+  #mat-card-left-photo {
     background-image: url(../../../../assets/itinerary/mat-card-holiday.png);
   }
 
@@ -160,6 +168,10 @@ mat-card {
     margin: 2%;
   }
 
+  #back-button-container {
+    padding-top: 20px;
+  }
+
   .day-card {
     margin-bottom: 10px;
   }
@@ -168,20 +180,11 @@ mat-card {
   .closing-feeling {
     padding-left: 20px;
     padding-right: 20px;
-  }
-
-  .closing-feeling {
-    margin-left: 20px;
-    margin-right: 20px;
-  }
-
-  #back-button-container {
-    padding-top: 20px;
   }
 }
 
 @media screen and (min-width: 1200px) {
-  mat-card {
+  mat-card.default {
     margin-bottom: 0;
     padding: 0;
   }
@@ -206,15 +209,15 @@ mat-card {
 
   #trip-container {
     padding: 0;
-    min-width: 700px;
   }
   #trip-information-container {
     flex-direction: row;
     justify-content: center;
     align-items: center;
     width: 100%;
-    min-width: 700px;
+    min-width: 1250px;
     height: 100vh;
+    min-height: 650px;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -231,21 +234,20 @@ mat-card {
     margin: 10px;
   }
 
-  #mat-card-right-photo {
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    width: 100%;
-    height: 100%;
-    background-image: url(../../../../assets/itinerary/mat-card-bed.png);
-  }
-
+  #mat-card-right-photo,
   #mat-card-left-photo {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     width: 100%;
     height: 100%;
+  }
+
+  #mat-card-right-photo {
+    background-image: url(../../../../assets/itinerary/mat-card-bed.png);
+  }
+
+  #mat-card-left-photo {
     background-image: url(../../../../assets/itinerary/mat-card-holiday.png);
   }
 
@@ -261,6 +263,10 @@ mat-card {
     margin: 2%;
   }
 
+  #back-button-container {
+    padding-top: 20px;
+  }
+
   .day-card {
     margin-bottom: 10px;
   }
@@ -269,9 +275,5 @@ mat-card {
   .closing-feeling {
     padding-left: 20px;
     padding-right: 20px;
-  }
-
-  #back-button-container {
-    padding-top: 20px;
   }
 }
