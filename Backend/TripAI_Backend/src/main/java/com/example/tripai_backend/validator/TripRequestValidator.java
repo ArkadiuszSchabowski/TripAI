@@ -46,11 +46,11 @@ public class TripRequestValidator {
         }
 
         if (!cityValidationService.exists(request.originCity())) {
-            throw new BadRequestException("Unknown origin city.");
+            throw new BadRequestException("We couldn't find the departure city.");
         }
 
         if (!cityValidationService.exists(request.destinationCity())) {
-            throw new BadRequestException("Unknown destination city.");
+            throw new BadRequestException("We couldn't find the destination city.");
         }
 
         if (request.fromDepartureDate().isBefore(today)) {
