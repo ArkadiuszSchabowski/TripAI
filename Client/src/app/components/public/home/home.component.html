@@ -1,11 +1,15 @@
 <section id="container-plan-trip" class="home-component component">
   <div id="form-component-text">
-    <div class="title">
-      Plan unforgettable trips with
-      <div id="title-ai-label" class="accent">AI</div>
+    <span id="form-component-text-title-first-sentence">
+      <span class="title"> Plan unforgettable trips with </span>
+      <span id="title-ai-label" class="accent"
+        >&nbsp;AI</span
+      >
+    </span>
+    <div id="form-component-text-title-sentences">
+      <div class="subtitle">Create plans faster, easier, and better.</div>
+      <div class="subtitle">Turn ideas into real journeys.</div>
     </div>
-    <div class="subtitle">Create plans faster, easier, and better.</div>
-    <div class="subtitle">Turn ideas into real journeys.</div>
   </div>
   <div id="form-component">
     <form [formGroup]="form" (ngSubmit)="loadTrip()" autocomplete="off">
@@ -132,7 +136,7 @@
               color="accent"
               type="submit"
             >
-              Ok
+              Plan trip
             </button>
           </div>
         </mat-card-content>
@@ -141,5 +145,5 @@
   </div>
 </section>
 <section id="container-how-it-works">
-<div id="photo-how-it-works"></div>
+  <div id="photo-how-it-works"></div>
 </section>

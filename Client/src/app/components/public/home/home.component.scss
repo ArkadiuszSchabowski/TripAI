@@ -3,25 +3,43 @@
 
 mat-form-field.form-field {
   padding: 5px 0;
-  width: 360px;
+  width: 300px;
 }
 
-.home-component {
+mat-card.trip {
   display: flex;
   flex-direction: column;
-  width: calc(100vw - 20px);
-  height: 100%;
-  min-height: 600px;
-  min-width: 400px;
-  padding-top: 50px;
+  align-items: center;
+  width: 360px;
+  height: 450px;
 }
+
+mat-card-content.trip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: auto;
+  background-color: white;
+  padding-bottom: 20px;
+}
+
+form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: auto;
+  min-height: 500px;
+}
+
 #container-how-it-works {
   display: flex;
   flex-direction: column;
   width: calc(100vw - 20px);
   height: 100%;
   min-height: 600px;
-  min-width: 400px;
+  min-width: 350px;
 }
 
 #photo-how-it-works {
@@ -35,63 +53,46 @@ mat-form-field.form-field {
 #form-component {
   display: flex;
   width: 100%;
-}
-
-#form-component-text {
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 20%;
-  padding: 40px 0 20px 0;
+  height: auto;
 }
 
 #form-component {
-  height: 100%;
+  display: flex;
+  width: 100%;
+  height: auto;
   background-color: white;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
 }
 
-#title-ai-label {
-  padding-left: 5px;
-}
-
-.title {
+#form-component-text {
   display: flex;
-  flex-direction: row;
-  font-size: 24px;
-  font-weight: bolder;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  height: auto;
+  padding: 40px 0 20px 0;
 }
 
-.subtitle {
-  padding-top: 5px;
-  font-size: 16px;
-}
-
-.accent {
-  color: mat.get-color-from-palette(theme.$accent);
-}
-form {
+#form-component-text-title-first-sentence {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-align: center;
   width: 100%;
-  height: 100%;
+  height: auto;
+  padding: 10px 0 5px 0;
 }
 
-mat-card.trip {
+#form-component-text-title-sentences {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  width: 360px;
-  height: 480px;
-}
-
-mat-card-content.trip {
-  display: flex;
   flex-direction: column;
-  align-items: center;
+  justify-content: center;
   width: 100%;
-  height: 100%;
-  background-color: white;
+  height: auto;
 }
 
 #card-title {
@@ -106,8 +107,11 @@ mat-card-content.trip {
   color: white;
   background-color: mat.get-color-from-palette(theme.$accent);
 }
+
 #submit-button-container {
   display: flex;
+  width: 100%;
+  height: auto;
   justify-content: center;
   align-items: center;
   padding-top: 10px;
@@ -125,55 +129,123 @@ mat-card-content.trip {
   padding-top: 20px;
 }
 
-form{
+#title-ai-label {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.home-component {
   display: flex;
+  flex-direction: column;
+  width: calc(100vw - 20px);
   height: auto;
-  min-height: 500px;
+  min-height: 600px;
+  min-width: 350px;
+  padding-top: 50px;
+}
+
+.title {
+  display: flex;
+  flex-direction: row;
+  font-size: 24px;
+  font-weight: bolder;
+}
+
+.subtitle {
+  padding-top: 5px;
+  font-size: 16px;
+}
+
+.accent {
+  color: mat.get-color-from-palette(theme.$accent);
 }
 
 @media screen and (min-width: 768px) and (max-width: 1199px) {
+  mat-card.trip {
+    width: 380px;
+  }
+
+  form {
+    justify-content: right;
+    padding-right: 50px;
+  }
+
   #container-plan-trip {
     display: flex;
     flex-direction: row;
+    height: 100%;
+    width: 100vw;
+    min-width: 100vw;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     background-image: url(../../../../assets/home/home_background.png);
   }
-  #form-component-text {
-    height: 100%;
-    padding-bottom: 220px;
-  }
+
   #form-component {
+    width: auto;
+    min-width: 500px;
     padding-right: 10px;
     background-color: transparent;
   }
+
+  #form-component-text {
+    height: 100%;
+    padding-bottom: 260px;
+  }
+
+  #title-ai-label {
+    font-size: 36px;
+  }
+
   #photo-how-it-works {
     padding-top: 5px;
   }
-  mat-card.trip {
-    width: 380px;
+
+  .home-component {
+    height: 100%;
   }
 }
 
 @media screen and (min-width: 1200px) {
+  mat-card.trip {
+    width: 400px;
+  }
+
   #container-plan-trip {
     display: flex;
     flex-direction: row;
+    height: 100%;
+    width: 100vw;
+    min-width: 100vw;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     background-image: url(../../../../assets/home/home_background.png);
   }
-  #form-component-text {
-    height: 100%;
-    padding-bottom: 220px;
-  }
+
   #form-component {
-    padding-right: 20px;
+    width: auto;
+    min-width: 500px;
+    padding-right: 10px;
     background-color: transparent;
   }
-  mat-card.trip {
-    width: 500px;
+
+  #form-component-text {
+    height: 100%;
+    padding-bottom: 260px;
+  }
+
+  #title-ai-label {
+    font-size: 36px;
+  }
+
+  #photo-how-it-works {
+    padding-top: 5px;
+  }
+
+  .home-component {
+    height: 100%;
   }
 }
+
