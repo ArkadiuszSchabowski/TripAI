@@ -173,8 +173,7 @@ form {
     display: flex;
     flex-direction: row;
     height: 100%;
-    width: 100vw;
-    min-width: 100vw;
+    width: calc(100vw - 20px);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -215,8 +214,7 @@ form {
     display: flex;
     flex-direction: row;
     height: 100%;
-    width: 100vw;
-    min-width: 100vw;
+    width: calc(100vw - 20px);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
