@@ -3,9 +3,11 @@
     <div id="mat-card-left-container">
       <div id="mat-card-text">
         <mat-card class="mat-card-six-image default">
-          <div id="mat-card-information-title" class="title">Your AI-Generated Itinerary</div>
+          <div id="mat-card-information-title" class="title">
+            Your AI-Generated Itinerary
+          </div>
           <div id="mat-card-information-subtitle" class="subtitle">
-            Based on your preferences:
+            Route:
             {{ tripAgentResponse.information.originCity }} →
             {{ tripAgentResponse.information.destinationCity }}
           </div>
@@ -90,7 +92,11 @@
     </div>
   </section>
 
-  <section id="day-card-section" class="day-card" *ngFor="let day of tripAgentResponse.dailyPlan">
+  <section
+    id="day-card-section"
+    class="day-card"
+    *ngFor="let day of tripAgentResponse.dailyPlan"
+  >
     <mat-card class="day-card default">
       <div class="day-number">Day {{ day.dayNumber }}</div>
 
@@ -119,18 +125,32 @@
   </section>
   <div>
     <mat-card class="closing-feeling default">
-        <div class="closing-feeling">
-          {{ tripAgentResponse.closingFeeling }}
-        </div>
+      <div class="closing-feeling">
+        {{ tripAgentResponse.closingFeeling }}
+      </div>
     </mat-card>
   </div>
 
   <div id="back-button-container">
-    <button
-      id="back-button"
-      mat-raised-button
-      (click)="backToHome()"
-    >
+    <button id="back-button" mat-raised-button (click)="backToHome()">
+      Home
+    </button>
+  </div>
+</div>
+<div
+  id="component-without-response"
+  class="component"
+  *ngIf="!tripAgentResponse"
+>
+  <div id="message-without-response" class="message-without-response">
+    You don't have a trip plan. You don't have a trip plan. You don't have a
+    trip plan.
+  </div>
+  <div id="message-without-response-2" class="message-without-response">
+    Return to the home page to create a new one.
+  </div>
+  <div id="back-button-container-2">
+    <button id="back-button" mat-raised-button (click)="backToHome()">
       Home
     </button>
   </div>

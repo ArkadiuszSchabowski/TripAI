@@ -24,7 +24,7 @@ mat-card.default {
   padding-top: 80px;
 }
 
-#container-how-it-works{
+#container-how-it-works {
   padding: 0;
 }
 
@@ -91,6 +91,29 @@ mat-card.default {
 .subtitle {
   font-size: 16px;
   font-weight: bolder;
+}
+
+#component-without-response {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: left;
+  width: 100%;
+  min-width: 450px;
+  height: 100vh;
+  min-height: 500px;
+  padding: 100px 20px 20px 20px;
+  background-color: mat.get-color-from-palette(theme.$accent);
+}
+
+#message-without-response-2 {
+  padding-bottom: 40px;
+}
+
+.message-without-response {
+  color: white;
+  font-size: 20px;
+  padding-bottom: 10px;
 }
 
 @media screen and (min-width: 768px) and (max-width: 1199px) {
@@ -274,6 +297,12 @@ mat-card.default {
 
   #back-button-container {
     padding-top: 20px;
+  }
+
+  #component-without-response,
+  #back-button-container-2 {
+    justify-content: center;
+    align-items: center;
   }
 
   .day-card {
