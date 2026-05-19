@@ -5,7 +5,7 @@ import { ItineraryComponent } from './components/public/itinerary/itinerary.comp
 
 const routes: Routes = [
   {path: "", component: HomeComponent},
-  {path: "itinerary", component: ItineraryComponent}
+  {path: "itinerary", component: ItineraryComponent},
 ];
 
 @NgModule({

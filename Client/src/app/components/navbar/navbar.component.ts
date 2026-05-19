@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TripStateService } from '../../_services/trip-state.service';
 import { TripAgentResponse } from '../../models/trip-agent-response';
+import { LoaderService } from '../../_services/loader.service';
 
 @Component({
   selector: 'app-navbar',
@@ -11,8 +12,9 @@ import { TripAgentResponse } from '../../models/trip-agent-response';
 export class NavbarComponent implements OnInit {
   tripAgentResponse: TripAgentResponse | null = null;
   constructor(
+    public loader: LoaderService,
     private router: Router,
-    private tripStateService: TripStateService,
+    private tripStateService: TripStateService
   ) {}
   ngOnInit(): void {
     this.tripStateService.tripData$.subscribe({

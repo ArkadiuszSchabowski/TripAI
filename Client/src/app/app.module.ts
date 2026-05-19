@@ -13,6 +13,13 @@ import { ErrorInterceptor } from './interceptors/error-interceptor.interceptor';
 import { ItineraryComponent } from './components/public/itinerary/itinerary.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 
+import { LottieModule } from 'ngx-lottie';
+import player from 'lottie-web';
+
+export function playerFactory() {
+  return player;
+}
+
 @NgModule({
   declarations: [AppComponent, HomeComponent, ItineraryComponent, NavbarComponent],
   imports: [
@@ -23,6 +30,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     MaterialModule,
     ReactiveFormsModule,
     ToastrModule.forRoot({}),
+    LottieModule.forRoot({ player: playerFactory })
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

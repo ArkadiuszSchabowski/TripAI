@@ -6,13 +6,15 @@ import { TripDailyPlan } from '../../../models/trip-daily-plan';
 import { TripInformation } from '../../../models/trip-information';
 import { Router } from '@angular/router';
 import { TripStateService } from '../../../_services/trip-state.service';
+import { LoaderService } from '../../../_services/loader.service';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit{
+export class HomeComponent implements OnInit {
   tripInformation: TripInformation | null = null;
   days: TripDailyPlan[] = [];
 
@@ -32,12 +34,13 @@ export class HomeComponent implements OnInit{
 
   constructor(
     private fb: FormBuilder,
+    public loader: LoaderService,
     private router: Router,
     private tripService: TripService,
-    private tripStateService: TripStateService
+    private tripStateService: TripStateService,
   ) {}
   ngOnInit(): void {
-    console.log(this.tripStateService.tripData$)
+    console.log(this.tripStateService.tripData$);
   }
 
   loadTrip() {
@@ -54,11 +57,16 @@ export class HomeComponent implements OnInit{
       numberOfPeople: this.form.get('numberOfTravelers')!.value,
     };
 
-    this.tripService.showAgentTripPlan(dto).subscribe({
-      next: (response) => {
-        this.tripStateService.setTripData(response);
-        this.router.navigateByUrl('/itinerary');
-      },
-    });
+    this.loader.show();
+
+    this.tripService
+      .showAgentTripPlan(dto)
+      .pipe(finalize(() => this.loader.hide()))
+      .subscribe({
+        next: (response) => {
+          this.tripStateService.setTripData(response);
+          this.router.navigateByUrl('/itinerary');
+        },
+      });
   }
 }

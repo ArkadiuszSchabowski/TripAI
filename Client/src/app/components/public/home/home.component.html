@@ -1,10 +1,12 @@
-<section id="container-plan-trip" class="home-component component">
+<section
+  id="container-plan-trip"
+  class="home-component component"
+  *ngIf="!(loader.loading$ | async)"
+>
   <div id="form-component-text">
     <span id="form-component-text-title-first-sentence">
       <span class="title"> Plan unforgettable trips with </span>
-      <span id="title-ai-label" class="accent"
-        >&nbsp;AI</span
-      >
+      <span id="title-ai-label" class="accent">&nbsp;AI</span>
     </span>
     <div id="form-component-text-title-sentences">
       <div class="subtitle">Create plans faster, easier, and better.</div>
@@ -144,6 +146,12 @@
     </form>
   </div>
 </section>
-<section id="container-how-it-works">
+<div id="loader-container" *ngIf="loader.loading$ | async">
+  <div id="loader-text">Creating your travel plan...</div>
+  <div id="loader-logo">
+    <ng-lottie [options]="loader.animationOptions"></ng-lottie>
+  </div>
+</div>
+<section id="container-how-it-works" *ngIf="!(loader.loading$ | async)">
   <div id="photo-how-it-works"></div>
 </section>
