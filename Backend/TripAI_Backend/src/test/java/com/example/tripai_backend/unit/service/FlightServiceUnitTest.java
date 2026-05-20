@@ -1,9 +1,10 @@
-package com.example.tripai_backend.service;
+package com.example.tripai_backend.unit.service;
 
 import com.example.tripai_backend.client.DuffelClient;
 import com.example.tripai_backend.mapper.DuffelFlightMapper;
 import com.example.tripai_backend.model.flight.FlightResponseDto;
 import com.example.tripai_backend.model.flight.GetFlightDto;
+import com.example.tripai_backend.service.FlightService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
