@@ -5,6 +5,7 @@ import com.example.tripai_backend.agent.model.AgentTripPlanDto;
 import com.example.tripai_backend.agent.prompt.TripAgentPrompt;
 import com.example.tripai_backend.agent.tool.FlightTool;
 import com.example.tripai_backend.agent.tool.IataTool;
+import com.example.tripai_backend.helpers.TextNormalizer;
 import com.example.tripai_backend.model.trip.TripRequest;
 import com.example.tripai_backend.agent.security.TripAgentRateLimiter;
 import com.example.tripai_backend.validator.TripRequestValidator;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
         private  final ChatLanguageModel model;
         private final FlightTool flightTool;
         private final IataTool iataTool;
+        private final TextNormalizer textNormalizer;
         private final TripAgentPrompt tripAgentPrompt;
         private final TripAgentRateLimiter tripAgentRateLimiter;
         private final TripRequestValidator tripRequestValidator;
@@ -25,6 +27,7 @@ import org.springframework.stereotype.Service;
         public TripAgentService(ChatLanguageModel model,
                                 IataTool iataTool,
                                 FlightTool flightTool,
+                                TextNormalizer textNormalizer,
                                 TripAgentPrompt tripAgentPrompt,
                                 TripAgentRateLimiter tripAgentRateLimiter,
                                 TripRequestValidator tripRequestValidator)
@@ -32,6 +35,7 @@ import org.springframework.stereotype.Service;
             this.flightTool = flightTool;
             this.iataTool = iataTool;
             this.model = model;
+            this.textNormalizer = textNormalizer;
             this.tripAgentPrompt = tripAgentPrompt;
             this.tripAgentRateLimiter = tripAgentRateLimiter;
             this.tripRequestValidator = tripRequestValidator;
@@ -39,10 +43,21 @@ import org.springframework.stereotype.Service;
 
         public AgentTripPlanDto planTrip(TripRequest request) {
 
-            tripRequestValidator.validateDto(request);
-            tripAgentRateLimiter.validateAgentInvocationLimit();
+            String formattedOriginCity = textNormalizer.normalize(request.originCity());
+            String formattedDestinationCity = textNormalizer.normalize(request.destinationCity());
 
-            String userMessage = tripAgentPrompt.generateTripPlanPromptForAgent(request);
+            TripRequest formattedRequest = new TripRequest(
+                    request.fromDepartureDate(),
+                    request.toDepartureDate(),
+                    formattedOriginCity,
+                    formattedDestinationCity,
+                    request.numberOfPeople()
+            );
+
+            tripAgentRateLimiter.validateAgentInvocationLimit();
+            tripRequestValidator.validateDto(formattedRequest);
+
+            String userMessage = tripAgentPrompt.generateTripPlanPromptForAgent(formattedRequest);
 
             TripAgent agent = AiServices.builder(TripAgent.class)
                     .chatLanguageModel(model)
