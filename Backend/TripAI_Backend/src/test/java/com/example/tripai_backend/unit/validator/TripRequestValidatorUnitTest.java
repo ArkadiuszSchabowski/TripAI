@@ -1,7 +1,8 @@
-package com.example.tripai_backend.validator;
+package com.example.tripai_backend.unit.validator;
 
 import com.example.tripai_backend.model.trip.TripRequest;
 import com.example.tripai_backend.service.CityValidationService;
+import com.example.tripai_backend.validator.TripRequestValidator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
