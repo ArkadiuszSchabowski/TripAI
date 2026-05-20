@@ -4,6 +4,7 @@ import com.example.tripai_backend.architecture.FlightFacade;
 import com.example.tripai_backend.architecture.GeminiFacade;
 import com.example.tripai_backend.aiPrompt.CityPrompt;
 import com.example.tripai_backend.aiPrompt.TripPrompt;
+import com.example.tripai_backend.helpers.TextNormalizer;
 import com.example.tripai_backend.model.flight.FlightResponseDto;
 import com.example.tripai_backend.model.flight.GetFlightDto;
 import com.example.tripai_backend.model.trip.TripRequest;
@@ -18,6 +19,7 @@ public class TripService {
     private final CityPrompt cityPromptService;
     private final FlightFacade flight;
     private final GeminiFacade gemini;
+    private final TextNormalizer textNormalizer;
     private final TripPrompt tripPromptService;
     private final TripRateLimiter tripRateLimiter;
     private final TripRequestValidator tripRequestValidator;
@@ -25,6 +27,7 @@ public class TripService {
     public TripService(CityPrompt cityPromptService,
                        FlightFacade flight,
                        GeminiFacade gemini,
+                       TextNormalizer textNormalizer,
                        TripPrompt tripPromptService,
                        TripRateLimiter tripRateLimiter,
                        TripRequestValidator tripRequestValidator)
@@ -32,14 +35,26 @@ public class TripService {
         this.cityPromptService = cityPromptService;
         this.flight = flight;
         this.gemini = gemini;
+        this.textNormalizer = textNormalizer;
         this.tripPromptService = tripPromptService;
         this.tripRateLimiter = tripRateLimiter;
         this.tripRequestValidator = tripRequestValidator;
     }
     public String generateTripPlan(TripRequest tripRequest) {
 
-        tripRequestValidator.validateDto(tripRequest);
+        String formattedOriginCity = textNormalizer.normalize(tripRequest.originCity());
+        String formattedDestinationCity = textNormalizer.normalize(tripRequest.destinationCity());
+
+        TripRequest formattedTripRequest = new TripRequest(
+                tripRequest.fromDepartureDate(),
+                tripRequest.toDepartureDate(),
+                formattedOriginCity,
+                formattedDestinationCity,
+                tripRequest.numberOfPeople()
+        );
+
         tripRateLimiter.validateInvocationLimit();
+        tripRequestValidator.validateDto(formattedTripRequest);
 
         String originCityPrompt = cityPromptService.generateIataPromptForCity(tripRequest.originCity());
         String destinationCityPrompt = cityPromptService.generateIataPromptForCity(tripRequest.destinationCity());
