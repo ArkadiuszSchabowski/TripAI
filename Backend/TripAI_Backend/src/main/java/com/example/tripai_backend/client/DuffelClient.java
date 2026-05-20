@@ -19,10 +19,10 @@ public class DuffelClient {
 
     private final RestTemplate restTemplate;
 
-    @Value("${duffel.api.key}")
+    @Value("${duffel.api.key:test_key}")
     private String duffelApiKey;
 
-    @Value("${duffel.api.base.url}")
+    @Value("${duffel.api.base.url:https://api.duffel.com/air/offer_requests}")
     private String duffelApiBaseUrl;
 
     public DuffelClient() {
