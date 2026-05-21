@@ -1,12 +1,13 @@
 package com.example.tripai_backend.integration;
 
 import com.example.tripai_backend.service.CityValidationService;
-import org.junit.jupiter.api.Test;
+import dev.langchain4j.model.chat.ChatLanguageModel;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -15,6 +16,9 @@ import static org.junit.jupiter.api.Assertions.*;
 public class CityValidationServiceIntegrationTest {
     @Autowired
     CityValidationService service;
+
+    @MockitoBean
+    private ChatLanguageModel chatLanguageModel;
 
     @ParameterizedTest
     @CsvSource({
