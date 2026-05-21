@@ -13,7 +13,7 @@
     <a mat-menu-item
       *ngIf="isHomePage"
       class="mobile-navbar-item"
-      (click)="scrollToSection('photo-how-it-works')"
+      (click)="scrollToSection('how-it-works-title')"
       >HOW IT WORKS</a>
     <a
       mat-menu-item
@@ -43,7 +43,7 @@
     <a
       mat-button
       class="desktop-navbar-item"
-      (click)="scrollToSection('photo-how-it-works')"
+      (click)="scrollToSection('how-it-works-title')"
       *ngIf="isHomePage && !(loader.loading$ | async)"
       >HOW IT WORKS</a
     >
