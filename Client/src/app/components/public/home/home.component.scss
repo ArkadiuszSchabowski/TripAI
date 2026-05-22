@@ -1,137 +1,81 @@
 @use "@angular/material" as mat;
 @use "src/styles" as theme;
 
-mat-form-field.form-field {
-  padding: 5px 0;
-  width: 300px;
-}
-
-mat-card.trip {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 360px;
-  height: 450px;
-}
-
-mat-card-content.trip {
+#container-plan-trip {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: auto;
-  background-color: white;
-  padding-bottom: 20px;
+  min-width: 400px;
+  height: 740px;
+  padding: 70px 20px 20px 20px;
+  background-color: gainsboro;
 }
 
-form {
+#form-component {
   display: flex;
+  width: 100%;
   justify-content: center;
-  align-items: center;
-  width: 100vw;
-  height: auto;
-  min-height: 500px;
-}
-
-#form-component-text,
-#form-component {
-  display: flex;
-  width: 100%;
-  height: auto;
-}
-
-#form-component {
-  display: flex;
-  width: 100%;
-  height: auto;
-  background-color: white;
-  padding-bottom: 20px;
-  margin-bottom: 20px;
 }
 
 #form-component-text {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  height: auto;
   text-align: center;
-  align-items: center;
-  height: auto;
-  padding: 40px 0 20px 20px;
-}
-
-#form-component-text-title-first-sentence {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  width: 100%;
-  height: auto;
-  padding-bottom: 5px;
-}
-
-#form-component-text-title-sentences {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 100%;
-  height: auto;
+  padding: 20px 0;
+  color: mat.get-color-from-palette(theme.$accent);
 }
 
 #card-title {
   display: flex;
   justify-content: center;
-  align-items: center;
-  width: 100%;
-  font-size: 22px;
-  font-weight: 500;
+  width: 400px;
+  height: 100%;
   padding: 10px 0;
-  margin-bottom: 20px;
+  margin: 30px 0;
   color: white;
   background-color: mat.get-color-from-palette(theme.$accent);
 }
 
-#submit-button-container {
-  display: flex;
-  width: 100%;
-  height: auto;
-  justify-content: center;
-  align-items: center;
-  padding-top: 20px;
-}
-
-#trip-container {
+mat-card-content.trip {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  height: auto;
-  padding: 20px;
 }
 
-#title-ai-label {
-  font-size: 30px;
-  font-weight: bold;
+mat-form-field.form-field {
+  padding: 5px 0;
+}
+
+#submit-button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 0;
+}
+
+#submit-button {
+  display: flex;
+  width: 250px;
 }
 
 #loader-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   width: 100%;
   height: 100%;
+  min-height: 400px;
   background-color: white;
-  padding-top: 50px;
 }
 
 #loader-text {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
   font-size: 24px;
   color: mat.get-color-from-palette(theme.$accent);
-  padding: 50px 0 20px 0;
+  margin-top: 100px;
 }
 
 #container-how-it-works {
@@ -139,9 +83,9 @@ form {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100vw;
+  width: 100%;
   height: 240%;
-  min-height: 600px;
+  min-height: 1600px;
   min-width: 400px;
   background-color: mat.get-color-from-palette(theme.$accent);
 }
@@ -151,10 +95,20 @@ form {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100vw;
+  width: 100%;
   min-width: 400px;
   height: auto;
   padding: 0 20px;
+  background-color: mat.get-color-from-palette(theme.$accent);
+}
+
+#how-it-works-title-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: auto;
+  padding-top: 20px;
+  color: white;
   background-color: mat.get-color-from-palette(theme.$accent);
 }
 
@@ -200,36 +154,12 @@ form {
   margin-bottom: 30px;
 }
 
-#how-it-works-title {
-  display: flex;
-  justify-content: center;
-  width: 100vw;
-  min-width: 400px;
-  height: auto;
-  padding-top: 20px;
-  color: white;
-  background-color: mat.get-color-from-palette(theme.$accent);
-}
-
-.home-component {
-  display: flex;
-  flex-direction: column;
-  width: 100vw;
-  height: auto;
-  min-height: 600px;
-  min-width: 350px;
-  padding-top: 50px;
-}
-
 .title {
-  display: flex;
-  flex-direction: row;
   font-size: 24px;
   font-weight: bolder;
 }
 
 .subtitle {
-  padding-top: 5px;
   font-size: 16px;
 }
 
@@ -238,152 +168,105 @@ form {
 }
 
 @media screen and (min-width: 768px) and (max-width: 1199px) {
-  mat-card.trip {
-    width: 380px;
-  }
-
-  form {
-    justify-content: right;
-    padding-right: 50px;
-  }
-
   #container-plan-trip {
-    display: flex;
-    flex-direction: row;
-    height: 100%;
-    width: calc(100vw - 20px);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     background-image: url(../../../../assets/home/home_background.png);
   }
 
-  #form-component {
-    width: auto;
-    min-width: 500px;
-    padding-right: 10px;
-    background-color: transparent;
-  }
-
   #form-component-text {
-    height: 100%;
-    padding-bottom: 300px;
+    display: flex;
+    width: 100%;
+    height: 15%;
+    margin: 0;
+    padding: 20px 0 0 0;
   }
 
-  #title-ai-label {
-    font-size: 36px;
-  }
-
-  #photo-how-it-works {
-    padding-top: 5px;
-  }
-
-  #loader-container {
-    padding-top: 80px;
+  #form-component {
+    display: flex;
+    width: 100%;
   }
 
   #container-how-it-works {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
     height: auto;
-    padding: 20px 50px;
+    min-height: 0;
   }
 
   #how-it-works-image-container {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-  }
-
-  #how-it-works-title {
-    padding: 30px 0;
+    min-width: 0;
   }
 
   #container-how-it-works-section-1,
   #container-how-it-works-section-2,
   #container-how-it-works-section-3,
   #container-how-it-works-section-4 {
-    margin: 30px 50px;
     width: 400px;
     height: 400px;
+    margin: 25px;
   }
 
-  .home-component {
-    height: 100%;
+  #loader-container {
+    justify-content: baseline;
+    padding: 0;
+    margin: 0;
   }
 }
 
 @media screen and (min-width: 1200px) {
-  mat-card.trip {
-    width: 400px;
-  }
-
   #container-plan-trip {
-    display: flex;
     flex-direction: row;
-    height: 100%;
-    width: calc(100vw - 20px);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     background-image: url(../../../../assets/home/home_background.png);
   }
 
-  #form-component {
-    width: auto;
-    min-width: 500px;
-    padding-right: 10px;
-    background-color: transparent;
-  }
-
   #form-component-text {
+    display: flex;
+    padding-top: 150px;
+    width: 50%;
     height: 100%;
-    padding-bottom: 300px;
   }
 
-  #title-ai-label {
-    font-size: 36px;
-  }
-
-  #photo-how-it-works {
-    padding-top: 5px;
-  }
-
-  #loader-container {
-    padding-top: 80px;
+  #form-component {
+    display: flex;
+    width: 50%;
   }
 
   #container-how-it-works {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
     height: auto;
-    padding: 20px 50px;
+    min-height: 0;
   }
 
   #how-it-works-image-container {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-  }
-
-  #how-it-works-title {
-    padding: 30px 0;
+    min-width: 0;
   }
 
   #container-how-it-works-section-1,
   #container-how-it-works-section-2,
   #container-how-it-works-section-3,
   #container-how-it-works-section-4 {
-    margin: 30px 50px;
     width: 400px;
     height: 400px;
+    margin: 25px;
   }
+  #loader-container {
+    justify-content: baseline;
+    padding: 0;
+    margin: 0;
 
-  .home-component {
-    height: 100%;
   }
 }

@@ -8,7 +8,7 @@ import java.time.LocalDate;
 @Component
 public class TripAgentRateLimiter {
 
-    private static final int MAX_REQUESTS = 10;
+    private static final int MAX_REQUESTS = 500;
 
     private int count = 0;
     private LocalDate date = LocalDate.now();

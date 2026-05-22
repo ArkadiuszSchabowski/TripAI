@@ -1,150 +1,144 @@
-<section
-  id="container-plan-trip"
-  class="home-component component"
-  *ngIf="!(loader.loading$ | async)"
->
+<section id="container-plan-trip" *ngIf="!(loader.loading$ | async)">
   <div id="form-component-text">
     <span id="form-component-text-title-first-sentence">
-      <span class="title"> Plan unforgettable trips with </span>
-      <span id="title-ai-label" class="accent">&nbsp;AI</span>
+      <span class="title"> Plan unforgettable trips with AI</span>
     </span>
-    <div id="form-component-text-title-sentences">
-      <div class="subtitle">Create plans faster, easier, and better.</div>
-      <div class="subtitle">Turn ideas into real journeys.</div>
+    <div id="form-component-text-title-sentences" class="subtitle">
+      <div>Create plans faster, easier, and better.</div>
+      <div>Turn ideas into real journeys.</div>
     </div>
   </div>
-  <div id="form-component">
-    <form [formGroup]="form" (ngSubmit)="loadTrip()" autocomplete="off">
-      <mat-card class="trip">
-        <mat-card-title id="card-title">Describe your trip</mat-card-title>
-        <mat-card-content class="trip">
-          <mat-form-field appearance="outline" class="form-field">
-            <mat-label>Departure city</mat-label>
-            <input
-              matInput
-              formControlName="fromCity"
-              placeholder="Where are you flying from?"
-            />
-            <mat-error
-              *ngIf="
-                form.get('fromCity')?.hasError('required') &&
-                form.get('fromCity')?.touched
-              "
-            >
-              City is required.
-            </mat-error>
-            <mat-error
-              *ngIf="
-                form.get('fromCity')?.hasError('maxlength') &&
-                form.get('fromCity')?.touched
-              "
-            >
-              City must be between 1 and 50 characters.
-            </mat-error>
-          </mat-form-field>
+  <form
+    id="form-component"
+    [formGroup]="form"
+    (ngSubmit)="loadTrip()"
+    autocomplete="off"
+  >
+    <mat-card class="trip">
+      <mat-card-title id="card-title">Describe your trip</mat-card-title>
+      <mat-card-content class="trip">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Departure city</mat-label>
+          <input
+            matInput
+            formControlName="fromCity"
+            placeholder="Where are you flying from?"
+          />
+          <mat-error
+            *ngIf="
+              form.get('fromCity')?.hasError('required') &&
+              form.get('fromCity')?.touched
+            "
+          >
+            City is required.
+          </mat-error>
+          <mat-error
+            *ngIf="
+              form.get('fromCity')?.hasError('maxlength') &&
+              form.get('fromCity')?.touched
+            "
+          >
+            City must be between 1 and 50 characters.
+          </mat-error>
+        </mat-form-field>
 
-          <mat-form-field appearance="outline" class="form-field">
-            <mat-label>Destination city</mat-label>
-            <input
-              matInput
-              formControlName="toCity"
-              placeholder="Where are you going?"
-            />
-            <mat-error
-              *ngIf="
-                form.get('toCity')?.hasError('required') &&
-                form.get('toCity')?.touched
-              "
-            >
-              City is required.
-            </mat-error>
-            <mat-error
-              *ngIf="
-                form.get('toCity')?.hasError('maxlength') &&
-                form.get('toCity')?.touched
-              "
-            >
-              City must be between 1 and 50 characters.
-            </mat-error>
-          </mat-form-field>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Destination city</mat-label>
+          <input
+            matInput
+            formControlName="toCity"
+            placeholder="Where are you going?"
+          />
+          <mat-error
+            *ngIf="
+              form.get('toCity')?.hasError('required') &&
+              form.get('toCity')?.touched
+            "
+          >
+            City is required.
+          </mat-error>
+          <mat-error
+            *ngIf="
+              form.get('toCity')?.hasError('maxlength') &&
+              form.get('toCity')?.touched
+            "
+          >
+            City must be between 1 and 50 characters.
+          </mat-error>
+        </mat-form-field>
 
-          <mat-form-field appearance="outline" class="form-field">
-            <mat-label>Travel dates</mat-label>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Travel dates</mat-label>
 
-            <div formGroupName="dateRange" id="container-date-range">
-              <mat-date-range-input [rangePicker]="picker">
-                <input
-                  matStartDate
-                  formControlName="start"
-                  placeholder="Start date"
-                />
-                <input
-                  matEndDate
-                  formControlName="end"
-                  placeholder="End date"
-                />
-              </mat-date-range-input>
-            </div>
-
-            <mat-datepicker-toggle
-              matIconSuffix
-              [for]="picker"
-            ></mat-datepicker-toggle>
-            <mat-date-range-picker #picker></mat-date-range-picker>
-            <mat-error
-              *ngIf="
-                (form.get('dateRange.start')?.hasError('required') &&
-                  form.get('dateRange.start')?.touched) ||
-                (form.get('dateRange.end')?.hasError('required') &&
-                  form.get('dateRange.end')?.touched)
-              "
-            >
-              Travel dates are required.
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="outline" class="form-field">
-            <mat-label>Travelers</mat-label>
-
-            <input
-              matInput
-              type="number"
-              formControlName="numberOfTravelers"
-              min="1"
-              max="10"
-            />
-
-            <mat-error
-              *ngIf="
-                form.get('numberOfTravelers')?.hasError('required') &&
-                form.get('numberOfTravelers')?.touched
-              "
-            >
-              Please select number of travelers.
-            </mat-error>
-
-            <mat-error
-              *ngIf="
-                form.get('numberOfTravelers')?.hasError('min') ||
-                form.get('numberOfTravelers')?.hasError('max')
-              "
-            >
-              Number of people must be between 1 and 10.
-            </mat-error>
-          </mat-form-field>
-          <div id="submit-button-container">
-            <button
-              id="submit-button"
-              mat-raised-button
-              color="accent"
-              type="submit"
-            >
-              Plan trip
-            </button>
+          <div formGroupName="dateRange" id="container-date-range">
+            <mat-date-range-input [rangePicker]="picker">
+              <input
+                matStartDate
+                formControlName="start"
+                placeholder="Start date"
+              />
+              <input matEndDate formControlName="end" placeholder="End date" />
+            </mat-date-range-input>
           </div>
-        </mat-card-content>
-      </mat-card>
-    </form>
-  </div>
+
+          <mat-datepicker-toggle
+            matIconSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-date-range-picker #picker></mat-date-range-picker>
+          <mat-error
+            *ngIf="
+              (form.get('dateRange.start')?.hasError('required') &&
+                form.get('dateRange.start')?.touched) ||
+              (form.get('dateRange.end')?.hasError('required') &&
+                form.get('dateRange.end')?.touched)
+            "
+          >
+            Travel dates are required.
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Travelers</mat-label>
+
+          <input
+            matInput
+            type="number"
+            formControlName="numberOfTravelers"
+            min="1"
+            max="10"
+          />
+
+          <mat-error
+            *ngIf="
+              form.get('numberOfTravelers')?.hasError('required') &&
+              form.get('numberOfTravelers')?.touched
+            "
+          >
+            Please select number of travelers.
+          </mat-error>
+
+          <mat-error
+            *ngIf="
+              form.get('numberOfTravelers')?.hasError('min') ||
+              form.get('numberOfTravelers')?.hasError('max')
+            "
+          >
+            Number of people must be between 1 and 10.
+          </mat-error>
+        </mat-form-field>
+        <div id="submit-button-container">
+          <button
+            id="submit-button"
+            mat-raised-button
+            color="accent"
+            type="submit"
+          >
+            Plan trip
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </form>
 </section>
 <div id="loader-container" *ngIf="loader.loading$ | async">
   <div id="loader-text">Creating your travel plan...</div>
@@ -157,10 +151,10 @@
     <section id="how-it-works-title" class="title">HOW IT WORKS</section>
   </div>
 
-    <div id="how-it-works-image-container">
-      <section id="container-how-it-works-section-1"></section>
-      <section id="container-how-it-works-section-2"></section>
-      <section id="container-how-it-works-section-3"></section>
-      <section id="container-how-it-works-section-4"></section>
+  <div id="how-it-works-image-container">
+    <section id="container-how-it-works-section-1"></section>
+    <section id="container-how-it-works-section-2"></section>
+    <section id="container-how-it-works-section-3"></section>
+    <section id="container-how-it-works-section-4"></section>
   </div>
 </section>
