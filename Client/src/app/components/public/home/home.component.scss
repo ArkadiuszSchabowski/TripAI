@@ -139,10 +139,10 @@ form {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  height: 260%;
+  width: 100vw;
+  height: 240%;
   min-height: 600px;
-  min-width: 350px;
+  min-width: 400px;
   background-color: mat.get-color-from-palette(theme.$accent);
 }
 
@@ -151,8 +151,10 @@ form {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  width: 100vw;
+  min-width: 400px;
   height: auto;
+  padding: 0 20px;
   background-color: mat.get-color-from-palette(theme.$accent);
 }
 
@@ -161,8 +163,8 @@ form {
 #container-how-it-works-section-3,
 #container-how-it-works-section-4 {
   display: flex;
-  width: 400px;
-  height: 400px;
+  width: 365px;
+  height: 365px;
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -199,14 +201,20 @@ form {
 }
 
 #how-it-works-title {
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  min-width: 400px;
+  height: auto;
   padding-top: 20px;
   color: white;
+  background-color: mat.get-color-from-palette(theme.$accent);
 }
 
 .home-component {
   display: flex;
   flex-direction: column;
-  width: calc(100vw - 20px);
+  width: 100vw;
   height: auto;
   min-height: 600px;
   min-width: 350px;
@@ -298,6 +306,8 @@ form {
   #container-how-it-works-section-3,
   #container-how-it-works-section-4 {
     margin: 30px 50px;
+    width: 400px;
+    height: 400px;
   }
 
   .home-component {
@@ -369,6 +379,8 @@ form {
   #container-how-it-works-section-3,
   #container-how-it-works-section-4 {
     margin: 30px 50px;
+    width: 400px;
+    height: 400px;
   }
 
   .home-component {
