@@ -56,8 +56,7 @@ AI-powered travel planning application that generates personalized day-by-day it
 ## 🧪 Testing
 
 ### Backend
-- Unit tests written in JUnit 5
-- Integration tests
+- Unit and integration tests written in JUnit 5
 
 ### Frontend
 - Unit tests written in Jasmine
