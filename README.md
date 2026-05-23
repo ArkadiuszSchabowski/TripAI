@@ -9,6 +9,8 @@
 
 AI-powered travel planning application that generates personalized day-by-day itineraries using external Flight APIs and intelligent recommendation logic.
 
+---
+
 <img width="900" alt="plantrip1" src="https://github.com/user-attachments/assets/b6f0659d-e309-4385-87e5-4f8e933fc0a4" />
 
 ---
