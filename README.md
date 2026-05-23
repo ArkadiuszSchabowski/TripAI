@@ -1,13 +1,19 @@
 # ✈️ Plan Your Trip
 
+### 🔗 Live Application
+[Plan Your Trip](https://plan-your-trip-ai.netlify.app)
+
+---
+
 ## About the Project
 
-AI-powered travel planning agent designed to automate trip organization by integrating external Flight APIs and intelligent recommendation logic to generate optimized day-by-day itineraries.
-The application helps users quickly organize trips by generating personalized travel plans based on destination, travel dates, and passenger count. By combining AI capabilities with real-time travel data, the system creates personalized and optimized travel experiences for users.
+AI-powered travel planning application that generates personalized day-by-day itineraries using external Flight APIs and intelligent recommendation logic.
 
-<img width="900" alt="plantrip1" src="https://github.com/user-attachments/assets/e63e6493-2d53-4bb6-b2a2-6b0eeab381e6" />
+<img width="900" alt="plantrip1" src="https://github.com/user-attachments/assets/b6f0659d-e309-4385-87e5-4f8e933fc0a4" />
 
-<img width="900" alt="plantrip2" src="https://github.com/user-attachments/assets/cc782ab5-06df-437d-a94c-4cc3a067e5e6" />
+---
+
+<img width="900" alt="plantrip2" src="https://github.com/user-attachments/assets/fd035bd6-1c94-4bb6-95a9-5c5196357a6e" />
 
 ---
 
