@@ -47,3 +47,7 @@ dataSources.local.xml
 error_logs.log
 application.properties
 logback.xml
+duffel_response.json
+.gitignore
+connections.xml
+profiles.xml
