@@ -6,7 +6,6 @@ import com.example.tripai_backend.model.flight.GetFlightDto;
 import com.example.tripai_backend.service.FlightService;
 import dev.langchain4j.agent.tool.Tool;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -42,6 +41,8 @@ public class FlightTool {
 
         List<FlightResponseDto> flights = flightService.getSimplifiedFlights(duffelJson);
 
-        return flightService.getTopFlights(flights);
+        var topFiveflights = flightService.getTopFlights(flights);
+
+        return topFiveflights;
     }
 }
